@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 /** Card that renders a soft radial "spotlight" following the cursor. */
-export function SpotlightCard({ as: Tag = 'div', className, children, spotlight = 'rgb(200 255 46 / 0.14)', ...props }) {
+export function SpotlightCard({ as: Tag = 'div', className, children, spotlight = 'rgb(254 175 118 / 0.14)', ...props }) {
   const ref = useRef(null);
   const onMove = (e) => {
     const rect = ref.current?.getBoundingClientRect();
@@ -105,7 +105,7 @@ export function CountUp({ value, duration = 1.8, format = (n) => Math.round(n).t
 }
 
 /** Cycles through words with a blur/slide transition. */
-export function WordRotate({ words, interval = 2600, className }) {
+export function WordRotate({ words, interval = 2600, className, colors }) {
   const [index, setIndex] = useState(0);
   useEffect(() => {
     // Skip ticks while the tab is hidden: animation frames pause there, so exit animations
@@ -126,6 +126,7 @@ export function WordRotate({ words, interval = 2600, className }) {
           exit={{ y: '-90%', opacity: 0, filter: 'blur(8px)' }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="col-start-1 row-start-1 whitespace-nowrap pb-[0.12em]"
+          style={colors ? { color: colors[index % colors.length] } : undefined}
         >
           {words[index]}
         </motion.span>
@@ -141,15 +142,15 @@ export function Aurora({ className, intensity = 1 }) {
       <div className="absolute inset-0 bg-grid mask-radial opacity-60" />
       <div
         className="absolute -left-[10%] -top-[20%] size-[55vmax] rounded-full blur-[110px] animate-aurora will-change-transform"
-        style={{ background: 'radial-gradient(circle, rgb(124 92 255 / 0.55), transparent 65%)', opacity: intensity }}
+        style={{ background: 'radial-gradient(circle, rgb(70 141 139 / 0.55), transparent 65%)', opacity: intensity }}
       />
       <div
         className="absolute -right-[15%] top-[5%] size-[45vmax] rounded-full blur-[120px] animate-aurora will-change-transform [animation-delay:-6s]"
-        style={{ background: 'radial-gradient(circle, rgb(200 255 46 / 0.35), transparent 65%)', opacity: intensity }}
+        style={{ background: 'radial-gradient(circle, rgb(254 175 118 / 0.32), transparent 65%)', opacity: intensity }}
       />
       <div
         className="absolute bottom-[-30%] left-[25%] size-[45vmax] rounded-full blur-[120px] animate-aurora will-change-transform [animation-delay:-12s]"
-        style={{ background: 'radial-gradient(circle, rgb(255 77 184 / 0.35), transparent 65%)', opacity: intensity }}
+        style={{ background: 'radial-gradient(circle, rgb(218 109 88 / 0.32), transparent 65%)', opacity: intensity }}
       />
     </div>
   );

@@ -20,7 +20,7 @@ export const TicketCard = forwardRef(function TicketCard({ registration, preview
   return (
     <div
       ref={ref}
-      className={cn('relative w-full overflow-hidden rounded-[28px] bg-[#0f0f15] text-white shadow-2xl shadow-black/30', className)}
+      className={cn('relative w-full overflow-hidden rounded-[28px] bg-night text-white shadow-2xl shadow-black/30', className)}
       style={{ '--cat': cat.color }}
     >
       {/* Header art */}
@@ -28,9 +28,9 @@ export const TicketCard = forwardRef(function TicketCard({ registration, preview
         {event.coverImage ? (
           <img src={imageAt(event.coverImage, 900)} alt="" crossOrigin="anonymous" className="size-full object-cover" />
         ) : (
-          <div className="size-full bg-gradient-to-br from-violet via-pink to-brand" />
+          <div className="size-full bg-gradient-to-br from-teal via-terracotta to-brand" />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f15] via-[#0f0f15]/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-night via-night/40 to-transparent" />
         <div className="absolute inset-x-5 top-4 flex items-center justify-between">
           <span className="flex items-center gap-2 font-display text-sm font-bold tracking-tight">
             <span className="grid size-6 place-items-center rounded-md bg-brand text-brand-ink">
@@ -83,7 +83,7 @@ export const TicketCard = forwardRef(function TicketCard({ registration, preview
         </div>
         <div className="flex flex-col items-center gap-2">
           <div className={cn('relative rounded-2xl bg-white p-2 transition-all duration-700', preview && 'blur-[3px]')}>
-            <QRCodeSVG value={qrValue} size={compact ? 76 : 92} bgColor="#ffffff" fgColor="#0b0b10" level="M" />
+            <QRCodeSVG value={qrValue} size={compact ? 76 : 92} bgColor="#ffffff" fgColor="#213843" level="M" />
             {preview && <span className="absolute inset-0 grid place-items-center rounded-2xl bg-white/40 text-[10px] font-bold uppercase tracking-widest text-black">Preview</span>}
           </div>
           <p className="font-mono text-[11px] font-semibold tracking-wider text-brand">{ticketCode || 'KX-····-····'}</p>
@@ -92,7 +92,7 @@ export const TicketCard = forwardRef(function TicketCard({ registration, preview
 
       {cancelled && (
         <div className="absolute inset-0 grid place-items-center bg-black/40 backdrop-blur-[1px]" aria-label="Cancelled ticket">
-          <span className="-rotate-12 rounded-xl border-4 border-coral px-5 py-2 font-display text-3xl font-extrabold uppercase tracking-widest text-coral">
+          <span className="-rotate-12 rounded-xl border-4 border-danger px-5 py-2 font-display text-3xl font-extrabold uppercase tracking-widest text-danger">
             Cancelled
           </span>
         </div>

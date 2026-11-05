@@ -1,15 +1,15 @@
 import { Briefcase, Cpu, Gamepad2, Hammer, HeartHandshake, Music2, Palette, Trophy, UtensilsCrossed } from 'lucide-react';
 
 export const CATEGORIES = [
-  { id: 'Tech', label: 'Tech', icon: Cpu, color: '#38bdf8', blurb: 'Hackathons, summits & meetups' },
-  { id: 'Music', label: 'Music', icon: Music2, color: '#ff4db8', blurb: 'Festivals, gigs & live sets' },
-  { id: 'Workshop', label: 'Workshops', icon: Hammer, color: '#ffb020', blurb: 'Hands-on learning' },
-  { id: 'Business', label: 'Business', icon: Briefcase, color: '#34d399', blurb: 'Pitches, bootcamps & careers' },
-  { id: 'Sports', label: 'Sports', icon: Trophy, color: '#ff5c39', blurb: 'Marathons, leagues & finals' },
-  { id: 'Gaming', label: 'Gaming', icon: Gamepad2, color: '#7c5cff', blurb: 'Esports & LAN parties' },
-  { id: 'Arts', label: 'Arts & Culture', icon: Palette, color: '#e879f9', blurb: 'Dance, comedy, books & photo' },
-  { id: 'Food', label: 'Food', icon: UtensilsCrossed, color: '#fb923c', blurb: 'Carnivals & masterclasses' },
-  { id: 'Community', label: 'Community', icon: HeartHandshake, color: '#a3e635', blurb: 'Volunteering & meetups' },
+  { id: 'Tech', label: 'Tech', icon: Cpu, color: '#74b3a8', blurb: 'Hackathons, summits & meetups' },
+  { id: 'Music', label: 'Music', icon: Music2, color: '#da6d58', blurb: 'Festivals, gigs & live sets' },
+  { id: 'Workshop', label: 'Workshops', icon: Hammer, color: '#feaf76', blurb: 'Hands-on learning' },
+  { id: 'Business', label: 'Business', icon: Briefcase, color: '#468d8b', blurb: 'Pitches, bootcamps & careers' },
+  { id: 'Sports', label: 'Sports', icon: Trophy, color: '#ef8e5f', blurb: 'Marathons, leagues & finals' },
+  { id: 'Gaming', label: 'Gaming', icon: Gamepad2, color: '#6fa3c7', blurb: 'Esports & LAN parties' },
+  { id: 'Arts', label: 'Arts & Culture', icon: Palette, color: '#e59a8c', blurb: 'Dance, comedy, books & photo' },
+  { id: 'Food', label: 'Food', icon: UtensilsCrossed, color: '#e9b277', blurb: 'Carnivals & masterclasses' },
+  { id: 'Community', label: 'Community', icon: HeartHandshake, color: '#8cc5b0', blurb: 'Volunteering & meetups' },
 ];
 
 export const categoryById = (id) => CATEGORIES.find((c) => c.id === id) ?? CATEGORIES[0];

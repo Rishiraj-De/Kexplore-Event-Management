@@ -23,7 +23,7 @@ function BandRow({ dark = false }) {
       {BAND_WORDS.map((w) => (
         <span key={w} className="flex items-center gap-10 font-display text-4xl font-extrabold uppercase tracking-tight sm:text-6xl">
           {w}
-          <span className={cn('text-3xl sm:text-5xl', dark ? 'text-brand' : 'text-violet')}>✳</span>
+          <span className={cn('text-3xl sm:text-5xl', dark ? 'text-terracotta' : 'text-teal')}>✳</span>
         </span>
       ))}
     </Marquee>
@@ -46,7 +46,7 @@ export function MarqueeBand() {
 // ── Featured bento grid ───────────────────────────────────────────────────────
 function BentoCard({ event, big = false, className }) {
   return (
-    <SpotlightCard className={cn('rounded-[28px] bg-black text-white', className)} spotlight="rgb(255 255 255 / 0.12)">
+    <SpotlightCard className={cn('rounded-[28px] bg-night text-white', className)} spotlight="rgb(246 218 192 / 0.14)">
       <Link to={`/events/${event.slug}`} className="absolute inset-0 z-20" aria-label={event.title} />
       <img
         src={imageAt(event.coverImage, big ? 1400 : 800)}
@@ -54,7 +54,7 @@ function BentoCard({ event, big = false, className }) {
         loading="lazy"
         className="absolute inset-0 size-full object-cover opacity-90 transition-transform duration-[1.4s] ease-out-expo group-hover/spot:scale-105"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-night via-night/35 to-night/5" />
       <div className="relative flex h-full flex-col justify-between p-5 sm:p-7">
         <div className="flex items-start justify-between">
           <CategoryBadge category={event.category} glass className="text-white" />
@@ -260,7 +260,7 @@ const testimonials = [
 function Quote({ t }) {
   return (
     <figure className="w-[340px] shrink-0 rounded-[24px] border border-line bg-surface p-6">
-      <div className="flex gap-0.5 text-amber" aria-label="5 out of 5 stars">
+      <div className="flex gap-0.5 text-apricot" aria-label="5 out of 5 stars">
         {Array.from({ length: 5 }, (_, i) => (
           <Star key={i} className="size-4 fill-current" />
         ))}
@@ -324,9 +324,9 @@ export function HostCta() {
   return (
     <section className="container-x py-10" aria-labelledby="cta-title">
       <Reveal>
-        <div className="relative isolate overflow-hidden rounded-[40px] bg-[#0b0b10] px-6 py-16 text-white sm:px-14 sm:py-24">
+        <div className="relative isolate overflow-hidden rounded-[40px] bg-night px-6 py-16 text-white sm:px-14 sm:py-24">
           <div aria-hidden className="absolute inset-0 -z-10">
-            <div className="absolute -left-20 -top-32 size-[520px] rounded-full bg-violet/50 blur-[120px] animate-aurora" />
+            <div className="absolute -left-20 -top-32 size-[520px] rounded-full bg-teal/50 blur-[120px] animate-aurora" />
             <div className="absolute -bottom-40 right-0 size-[520px] rounded-full bg-brand/30 blur-[120px] animate-aurora [animation-delay:-8s]" />
             <div className="absolute inset-0 bg-grid opacity-[0.15] mask-radial [--fg:#fff]" />
           </div>
@@ -366,7 +366,7 @@ export function HostCta() {
                   {[35, 52, 44, 68, 59, 80, 74, 92, 86, 100].map((h, i) => (
                     <motion.span
                       key={i}
-                      className="flex-1 rounded-t-lg bg-gradient-to-t from-violet to-brand"
+                      className="flex-1 rounded-t-lg bg-gradient-to-t from-teal to-brand"
                       initial={{ height: 0 }}
                       whileInView={{ height: `${h}%` }}
                       viewport={{ once: true }}

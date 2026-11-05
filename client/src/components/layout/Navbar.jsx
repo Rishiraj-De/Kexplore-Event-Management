@@ -87,7 +87,7 @@ function UserMenu() {
                 setOpen(false);
                 signOut();
               }}
-              className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-coral hover:bg-coral/10"
+              className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-danger hover:bg-danger/10"
             >
               <LogOut className="size-4" /> Sign out
             </button>

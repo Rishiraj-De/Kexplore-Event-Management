@@ -18,7 +18,7 @@ function readSaved() {
 function applyTheme(theme) {
   document.documentElement.classList.toggle('dark', theme === 'dark');
   document.querySelectorAll('meta[name="theme-color"]').forEach((m) => {
-    m.setAttribute('content', theme === 'dark' ? '#07070b' : '#f5f3ee');
+    m.setAttribute('content', theme === 'dark' ? '#152630' : '#fbf2e8');
   });
 }
 

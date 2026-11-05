@@ -269,7 +269,7 @@ export default function Tickets() {
           <Button variant="outline" className="flex-1" onClick={() => setCancelTarget(null)}>
             Keep ticket
           </Button>
-          <Button variant="danger" className="flex-1 bg-coral text-white" onClick={confirmCancel} loading={cancelling}>
+          <Button variant="danger" className="flex-1 bg-danger text-white" onClick={confirmCancel} loading={cancelling}>
             Yes, cancel
           </Button>
         </div>
@@ -285,7 +285,7 @@ export default function Tickets() {
           </Button>
           <Button
             variant="danger"
-            className="flex-1 bg-coral text-white"
+            className="flex-1 bg-danger text-white"
             onClick={() => {
               registrationStore.clear();
               setClearOpen(false);

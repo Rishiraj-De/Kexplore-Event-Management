@@ -15,7 +15,7 @@ export function FieldMessage({ id, error, hint }) {
           initial={{ opacity: 0, y: -4 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -4 }}
-          className="mt-2 flex items-start gap-1.5 pl-1 text-sm text-coral"
+          className="mt-2 flex items-start gap-1.5 pl-1 text-sm text-danger"
         >
           <CircleAlert className="mt-0.5 size-4 shrink-0" /> {error}
         </motion.p>
@@ -32,7 +32,7 @@ const shell = (error, valid) =>
   cn(
     'flex h-14 items-center gap-3 rounded-2xl border bg-surface px-4 transition-all duration-200',
     'focus-within:ring-4',
-    error ? 'border-coral focus-within:ring-coral/15' : valid ? 'border-emerald-500/50 focus-within:ring-emerald-500/15' : 'border-line focus-within:border-fg/30 focus-within:ring-brand/20',
+    error ? 'border-danger focus-within:ring-danger/15' : valid ? 'border-success/50 focus-within:ring-success/15' : 'border-line focus-within:border-fg/30 focus-within:ring-brand/20',
   );
 
 /** Labelled text input with icon, inline error/hint and a "valid" tick. */
@@ -46,7 +46,7 @@ export function TextField({ label, name, icon: Icon, error, valid, hint, optiona
         {optional && <span className="text-xs font-normal text-muted">Optional</span>}
       </label>
       <div className={shell(error, valid)}>
-        {Icon && <Icon className={cn('size-5 shrink-0', error ? 'text-coral' : 'text-muted')} aria-hidden />}
+        {Icon && <Icon className={cn('size-5 shrink-0', error ? 'text-danger' : 'text-muted')} aria-hidden />}
         <input
           ref={inputRef}
           id={id}
@@ -59,7 +59,7 @@ export function TextField({ label, name, icon: Icon, error, valid, hint, optiona
         <AnimatePresence>
           {valid && !error && (
             <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
-              <CircleCheck className="size-5 text-emerald-500" aria-label="Looks good" />
+              <CircleCheck className="size-5 text-success" aria-label="Looks good" />
             </motion.span>
           )}
         </AnimatePresence>
@@ -110,7 +110,7 @@ export function PhoneField({ value, country, onChange, onCountryChange, onBlur, 
           aria-describedby={msgId}
           className="h-full min-w-0 flex-1 bg-transparent font-mono text-base tracking-wide outline-none placeholder:font-sans placeholder:tracking-normal placeholder:text-muted/70"
         />
-        {valid && !error && <CircleCheck className="size-5 shrink-0 text-emerald-500" aria-label="Looks good" />}
+        {valid && !error && <CircleCheck className="size-5 shrink-0 text-success" aria-label="Looks good" />}
       </div>
       <FieldMessage id={msgId} error={error} hint={`${current.name}: ${current.hint}`} />
     </div>
@@ -122,7 +122,7 @@ export function TicketStepper({ value, max, onChange, price, error }) {
   return (
     <div>
       <p className="mb-2 pl-1 text-sm font-medium">Number of tickets</p>
-      <div className={cn('flex items-center justify-between rounded-2xl border bg-surface p-2 pl-4', error ? 'border-coral' : 'border-line')}>
+      <div className={cn('flex items-center justify-between rounded-2xl border bg-surface p-2 pl-4', error ? 'border-danger' : 'border-line')}>
         <div>
           <p className="font-display text-lg font-bold">
             {value} {value === 1 ? 'ticket' : 'tickets'}

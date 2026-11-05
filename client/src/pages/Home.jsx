@@ -1,4 +1,5 @@
 import { Hero } from '@/components/home/Hero';
+import { SeasonCarousel } from '@/components/home/SeasonCarousel';
 import { CategoryGrid, FeaturedBento, HostCta, HowItWorks, MarqueeBand, SocialProof, UpcomingSection } from '@/components/home/Sections';
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
       <title>Kexplore — Discover & register for events you’ll remember</title>
       <Hero />
       <MarqueeBand />
+      <SeasonCarousel />
       <FeaturedBento />
       <UpcomingSection />
       <CategoryGrid />

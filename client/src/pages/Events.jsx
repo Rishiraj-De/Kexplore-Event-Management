@@ -196,7 +196,7 @@ export default function Events() {
                 <button
                   key={f.key}
                   onClick={() => (f.key === 'q' ? setSearch('') : update({ [f.key]: '' }))}
-                  className="group inline-flex items-center gap-1.5 rounded-full bg-surface-2 py-1 pl-3 pr-2 text-sm transition hover:bg-coral/15 hover:text-coral"
+                  className="group inline-flex items-center gap-1.5 rounded-full bg-surface-2 py-1 pl-3 pr-2 text-sm transition hover:bg-danger/15 hover:text-danger"
                 >
                   {f.label}
                   <X className="size-3.5 opacity-60 group-hover:opacity-100" />

@@ -2,32 +2,70 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ───────────────────────── Design tokens ───────────────────────── */
+/* ───────────────────────── Design tokens ─────────────────────────
+   Palette (dusk over a mountain lake):
+   deep #213843 · teal #468D8B · sage #74B3A8 · cream #F6DAC0 · apricot #FEAF76 · terracotta #DA6D58
+   Light mode = "dawn" (cream sky), dark mode = "dusk" (deep teal sky). */
 :root {
-  --bg: #f5f3ee;
-  --surface: #ffffff;
-  --surface-2: #ebe8df;
-  --line: rgb(17 17 24 / 0.1);
-  --fg: #111118;
-  --muted: #5e5c68;
-  --accent: #5b3df5;
-  --glass: rgb(255 255 255 / 0.66);
-  --shadow-color: 240 10% 20%;
-  --grad: linear-gradient(100deg, #5b3df5 0%, #d6249f 35%, #ff5c39 65%, #0ea5e9 100%);
+  --bg: #fbf2e8;
+  --surface: #fffaf4;
+  --surface-2: #f3e2cf;
+  --line: rgb(33 56 67 / 0.12);
+  --fg: #213843;
+  --muted: #587079;
+  --accent: #b9533f;
+  --glass: rgb(255 250 244 / 0.72);
+  --shadow-color: 200 35% 18%;
+  --success: #2f7a73;
+  --warn: #b5612a;
+  --danger: #bf4f3b;
+  --grad: linear-gradient(100deg, #da6d58 0%, #b9533f 25%, #e88d5f 50%, #da6d58 75%, #b9533f 100%);
+  --word-1: #da6d58;
+  --word-2: #468d8b;
+  --word-3: #b9533f;
+  --word-4: #2f6f6d;
+  --word-5: #c4613f;
+
+  /* Hero scene */
+  --sky-top: #fbf2e8;
+  --sky-mid: #f9e6d2;
+  --sky-low: #f6d2b4;
+  --orb: #feaf76;
+  --orb-glow: rgb(254 175 118 / 0.45);
+  --mtn-far: #9cc4b9;
+  --water-top: #74b3a8;
+  --water-bottom: #fbf2e8;
   color-scheme: light;
 }
 
 .dark {
-  --bg: #07070b;
-  --surface: #0f0f15;
-  --surface-2: #17171f;
-  --line: rgb(255 255 255 / 0.085);
-  --fg: #f3f2ed;
-  --muted: #9a98a6;
-  --accent: #c8ff2e;
-  --glass: rgb(16 16 22 / 0.62);
-  --shadow-color: 0 0% 0%;
-  --grad: linear-gradient(100deg, #c8ff2e 0%, #38bdf8 35%, #7c5cff 65%, #ff4db8 100%);
+  --bg: #152630;
+  --surface: #1b2f39;
+  --surface-2: #233c48;
+  --line: rgb(246 218 192 / 0.1);
+  --fg: #f7e8da;
+  --muted: #9db6b1;
+  --accent: #feaf76;
+  --glass: rgb(21 38 48 / 0.66);
+  --shadow-color: 205 60% 4%;
+  --success: #74b3a8;
+  --warn: #feaf76;
+  --danger: #e57d67;
+  --grad: linear-gradient(100deg, #feaf76 0%, #f6dac0 35%, #feaf76 70%, #da6d58 100%);
+  --word-1: #feaf76;
+  --word-2: #74b3a8;
+  --word-3: #da6d58;
+  --word-4: #f6dac0;
+  --word-5: #8cc5b0;
+
+  --sky-top: #13222b;
+  --sky-mid: #1d3843;
+  --sky-low: #2c5f63;
+  --orb: #f6dac0;
+  --orb-glow: rgb(246 218 192 / 0.28);
+  --mtn-far: #2f5a60;
+  --water-top: #468d8b;
+  --water-bottom: #152630;
   color-scheme: dark;
 }
 
@@ -40,6 +78,9 @@
   --color-muted: var(--muted);
   --color-accent: var(--accent);
   --color-glass: var(--glass);
+  --color-success: var(--success);
+  --color-warn: var(--warn);
+  --color-danger: var(--danger);
 }
 
 @theme {
@@ -47,13 +88,18 @@
   --font-sans: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'Geist Mono Variable', ui-monospace, 'SFMono-Regular', monospace;
 
-  --color-brand: #c8ff2e;
-  --color-brand-ink: #0b0b10;
-  --color-violet: #7c5cff;
-  --color-coral: #ff5c39;
-  --color-pink: #ff4db8;
-  --color-sky: #38bdf8;
-  --color-amber: #ffb020;
+  /* Palette */
+  --color-deep: #213843;
+  --color-night: #172a33;
+  --color-teal: #468d8b;
+  --color-sage: #74b3a8;
+  --color-cream: #f6dac0;
+  --color-apricot: #feaf76;
+  --color-terracotta: #da6d58;
+
+  /* Primary action colour: apricot with deep ink (7:1 contrast) in both themes */
+  --color-brand: #feaf76;
+  --color-brand-ink: #213843;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-circ: cubic-bezier(0.85, 0, 0.15, 1);
@@ -66,6 +112,10 @@
   --animate-spin-slow: spin 14s linear infinite;
   --animate-pulse-ring: pulse-ring 2.2s cubic-bezier(0.2, 0.6, 0.35, 1) infinite;
   --animate-gradient-pan: gradient-pan 6s linear infinite;
+  --animate-float: float-y 7s ease-in-out infinite;
+  --animate-bob: bob 4.5s ease-in-out infinite;
+  --animate-drift: drift-x 9s linear infinite;
+  --animate-twinkle: twinkle 3.2s ease-in-out infinite;
 
   @keyframes marquee {
     from { transform: translateX(0); }
@@ -89,6 +139,22 @@
   @keyframes pulse-ring {
     0% { transform: scale(0.8); opacity: 0.7; }
     100% { transform: scale(2.4); opacity: 0; }
+  }
+  @keyframes float-y {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+    50% { transform: translateY(3px) rotate(1.5deg); }
+  }
+  @keyframes drift-x {
+    from { transform: translateX(0); }
+    to { transform: translateX(-60px); }
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.25; }
+    50% { opacity: 1; }
   }
   @keyframes gradient-pan {
     from { background-position: 0% 50%; }
@@ -238,8 +304,8 @@ html.lenis, html.lenis body { height: auto; }
 
 @utility shadow-glow {
   box-shadow:
-    0 0 0 1px rgb(200 255 46 / 0.4),
-    0 10px 40px -10px rgb(200 255 46 / 0.55);
+    0 0 0 1px rgb(254 175 118 / 0.5),
+    0 10px 40px -10px rgb(254 175 118 / 0.6);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -254,4 +320,33 @@ html.lenis, html.lenis body { height: auto; }
 @media print {
   header, footer, nav, .no-print { display: none !important; }
   body { background: #fff; color: #000; }
+}
+
+/* React Bits FlexCarousel — captions themed to the palette */
+.kx-flex-carousel .flex-carousel {
+  color: var(--fg);
+}
+.kx-flex-carousel .flex-carousel:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--accent);
+  border-radius: 24px;
+}
+.kx-flex-carousel .flex-carousel__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.kx-flex-carousel .flex-carousel__subtitle {
+  margin-top: 4px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--muted);
+  opacity: 1;
+}
+.kx-flex-carousel .flex-carousel__count {
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  color: var(--accent);
+  opacity: 0.9;
 }

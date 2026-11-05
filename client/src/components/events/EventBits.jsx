@@ -11,12 +11,12 @@ import { GoogleIcon } from '../ui/BrandIcons';
 /** Capacity bar: green → amber → red as the event fills up. */
 export function SeatsMeter({ event, className, showLabel = true }) {
   const { label, tone, ratio } = availability(event);
-  const color = { ok: 'bg-brand', warn: 'bg-amber', danger: 'bg-coral' }[tone];
+  const color = { ok: 'bg-brand', warn: 'bg-warn', danger: 'bg-danger' }[tone];
   return (
     <div className={className}>
       {showLabel && (
         <div className="mb-1.5 flex items-center justify-between text-xs">
-          <span className={cn('font-medium', tone === 'danger' ? 'text-coral' : tone === 'warn' ? 'text-amber-600 dark:text-amber' : 'text-muted')}>
+          <span className={cn('font-medium', tone === 'danger' ? 'text-danger' : tone === 'warn' ? 'text-warn' : 'text-muted')}>
             {label}
           </span>
           <span className="font-mono text-muted">{Math.round(ratio * 100)}% full</span>
@@ -56,12 +56,12 @@ export function BookmarkButton({ event, className, variant = 'glass' }) {
       )}
     >
       <motion.span key={String(saved)} initial={{ scale: 0.4 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 500, damping: 15 }}>
-        <Heart className={cn('size-[18px]', saved && 'fill-pink text-pink')} />
+        <Heart className={cn('size-[18px]', saved && 'fill-terracotta text-terracotta')} />
       </motion.span>
       <AnimatePresence>
         {saved && (
           <motion.span
-            className="absolute inset-0 rounded-full border-2 border-pink"
+            className="absolute inset-0 rounded-full border-2 border-terracotta"
             initial={{ scale: 0.6, opacity: 1 }}
             animate={{ scale: 1.6, opacity: 0 }}
             exit={{ opacity: 0 }}
@@ -97,7 +97,7 @@ export function ShareButton({ event, className }) {
       onClick={share}
       className={cn('inline-flex h-10 items-center gap-2 rounded-full border border-line bg-surface px-4 text-sm font-medium transition hover:bg-surface-2', className)}
     >
-      {copied ? <Check className="size-4 text-emerald-500" /> : <Share2 className="size-4" />}
+      {copied ? <Check className="size-4 text-success" /> : <Share2 className="size-4" />}
       {copied ? 'Copied' : 'Share'}
     </button>
   );
@@ -173,7 +173,7 @@ export function CopyCode({ code, className }) {
       aria-label={`Copy ticket code ${code}`}
     >
       {code}
-      {copied ? <Check className="size-3.5 text-emerald-500" /> : <Copy className="size-3.5 opacity-60" />}
+      {copied ? <Check className="size-3.5 text-success" /> : <Copy className="size-3.5 opacity-60" />}
     </button>
   );
 }

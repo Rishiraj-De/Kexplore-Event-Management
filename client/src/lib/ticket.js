@@ -4,7 +4,7 @@ import { prefersReducedMotion } from './utils';
 /** Celebrate a successful registration with a two-sided confetti burst in brand colours. */
 export function celebrate() {
   if (prefersReducedMotion()) return;
-  const colors = ['#c8ff2e', '#7c5cff', '#ff4db8', '#38bdf8', '#ffb020'];
+  const colors = ['#feaf76', '#468d8b', '#da6d58', '#74b3a8', '#f6dac0'];
   const end = Date.now() + 900;
   (function frame() {
     confetti({ particleCount: 6, angle: 60, spread: 70, origin: { x: 0, y: 0.7 }, colors, zIndex: 200 });

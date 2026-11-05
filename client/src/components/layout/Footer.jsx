@@ -24,7 +24,7 @@ function Newsletter() {
         The weekly drop
       </label>
       <p className="mt-1 text-sm text-muted">Five hand-picked events, every Friday. No spam.</p>
-      <div className={`mt-4 flex items-center gap-2 rounded-full border bg-surface p-1.5 pl-5 transition ${error ? 'border-coral' : 'border-line focus-within:border-fg/30'}`}>
+      <div className={`mt-4 flex items-center gap-2 rounded-full border bg-surface p-1.5 pl-5 transition ${error ? 'border-danger' : 'border-line focus-within:border-fg/30'}`}>
         <input
           id="newsletter"
           type="email"
@@ -43,7 +43,7 @@ function Newsletter() {
         </button>
       </div>
       {error && (
-        <p id="newsletter-error" className="mt-2 pl-5 text-xs text-coral">
+        <p id="newsletter-error" className="mt-2 pl-5 text-xs text-danger">
           {error}
         </p>
       )}

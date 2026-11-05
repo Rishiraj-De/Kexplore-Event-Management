@@ -60,7 +60,7 @@ function TextArea({ label, value, onChange, onBlur, error, max, rows = 3, placeh
     <div>
       <label className="mb-2 flex justify-between pl-1 text-sm font-medium">
         {label}
-        <span className={cn('font-mono text-xs', value.length > max ? 'text-coral' : 'text-muted')}>
+        <span className={cn('font-mono text-xs', value.length > max ? 'text-danger' : 'text-muted')}>
           {value.length}/{max}
         </span>
       </label>
@@ -71,7 +71,7 @@ function TextArea({ label, value, onChange, onBlur, error, max, rows = 3, placeh
         onBlur={onBlur}
         placeholder={placeholder}
         aria-invalid={Boolean(error)}
-        className={cn('w-full resize-y rounded-2xl border bg-surface p-4 outline-none transition focus:ring-4', error ? 'border-coral focus:ring-coral/15' : 'border-line focus:border-fg/30 focus:ring-brand/20')}
+        className={cn('w-full resize-y rounded-2xl border bg-surface p-4 outline-none transition focus:ring-4', error ? 'border-danger focus:ring-danger/15' : 'border-line focus:border-fg/30 focus:ring-brand/20')}
       />
       <FieldMessage error={error} />
     </div>

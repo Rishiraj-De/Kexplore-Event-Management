@@ -1,6 +1,16 @@
 import { Link } from 'react-router';
 import { cn, hueFrom, initials } from '@/lib/utils';
 
+// Avatar gradients drawn from the brand palette (all dark enough for white initials).
+const AVATAR_GRADIENTS = [
+  ['#468d8b', '#213843'],
+  ['#da6d58', '#9b4334'],
+  ['#ef8e5f', '#b9533f'],
+  ['#74b3a8', '#2f6f6d'],
+  ['#6fa3c7', '#213843'],
+  ['#c4613f', '#7c3a30'],
+];
+
 export function Logo({ className, compact = false }) {
   return (
     <Link to="/" className={cn('group inline-flex items-center gap-2.5', className)} aria-label="Kexplore home">
@@ -16,7 +26,7 @@ export function Logo({ className, compact = false }) {
 }
 
 export function Avatar({ name = '', src, size = 40, className }) {
-  const hue = hueFrom(name);
+  const [from, to] = AVATAR_GRADIENTS[hueFrom(name) % AVATAR_GRADIENTS.length];
   if (src) {
     return (
       <img
@@ -37,7 +47,7 @@ export function Avatar({ name = '', src, size = 40, className }) {
         width: size,
         height: size,
         fontSize: size * 0.36,
-        background: `linear-gradient(135deg, hsl(${hue} 85% 58%), hsl(${(hue + 60) % 360} 85% 45%))`,
+        background: `linear-gradient(135deg, ${from}, ${to})`,
       }}
       aria-label={name}
     >
@@ -70,8 +80,8 @@ export function SectionHeading({ eyebrow, title, description, action, className,
   );
 }
 
-export function Skeleton({ className }) {
-  return <div className={cn('skeleton rounded-xl', className)} aria-hidden />;
+export function Skeleton({ className, ...props }) {
+  return <div className={cn('skeleton rounded-xl', className)} aria-hidden {...props} />;
 }
 
 export function EmptyState({ icon: Icon, title, description, action, className }) {

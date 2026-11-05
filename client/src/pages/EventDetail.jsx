@@ -139,9 +139,9 @@ export default function EventDetail() {
 
       {/* ── Hero ── */}
       <section ref={heroRef} className="relative px-2 pt-2 sm:px-3 sm:pt-3">
-        <div className="relative isolate flex min-h-[82svh] items-end overflow-hidden rounded-[32px] bg-black text-white sm:rounded-[40px]">
+        <div className="relative isolate flex min-h-[82svh] items-end overflow-hidden rounded-[32px] bg-night text-white sm:rounded-[40px]">
           <motion.img src={imageAt(event.coverImage, 2000)} alt="" style={{ y: imgY, scale: imgScale }} className="absolute inset-0 -z-10 size-full object-cover opacity-80" />
-          <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black via-black/40 to-black/30" />
+          <div className="absolute inset-0 -z-10 bg-gradient-to-t from-night via-night/45 to-night/30" />
           <div className="container-x pb-10 pt-32 sm:pb-14">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}>
               <Link to="/events" className="mb-6 inline-flex items-center gap-2 text-sm text-white/70 transition hover:text-white">
@@ -288,7 +288,7 @@ export default function EventDetail() {
               </div>
             )}
             {phase === 'live' && (
-              <div className="mt-6 flex items-center gap-2 rounded-2xl bg-coral/10 p-4 text-sm font-medium text-coral">
+              <div className="mt-6 flex items-center gap-2 rounded-2xl bg-danger/10 p-4 text-sm font-medium text-danger">
                 <LiveDot /> This event is happening right now
               </div>
             )}

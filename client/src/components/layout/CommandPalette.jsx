@@ -68,7 +68,7 @@ export function CommandPalette() {
     <AnimatePresence>
       {open && (
         <div className="fixed inset-0 z-[120] flex items-start justify-center px-3 pt-[12vh]">
-          <motion.div className="absolute inset-0 bg-black/50 backdrop-blur-sm" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setOpen(false)} />
+          <motion.div className="absolute inset-0 bg-night/60 backdrop-blur-sm" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setOpen(false)} />
           <motion.div
             initial={{ opacity: 0, scale: 0.96, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}

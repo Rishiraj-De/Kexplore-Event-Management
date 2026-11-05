@@ -76,7 +76,7 @@ export function EventPicker({ events, value, onChange, onBlur, error, buttonRef,
         onClick={() => setOpen((o) => !o)}
         className={cn(
           'flex min-h-[72px] w-full items-center gap-3 rounded-2xl border bg-surface p-2.5 text-left transition-all',
-          error ? 'border-coral ring-4 ring-coral/10' : open ? 'border-fg/30 ring-4 ring-brand/20' : 'border-line hover:border-fg/25',
+          error ? 'border-danger ring-4 ring-danger/10' : open ? 'border-fg/30 ring-4 ring-brand/20' : 'border-line hover:border-fg/25',
         )}
       >
         {selected ? (

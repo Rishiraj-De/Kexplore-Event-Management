@@ -29,17 +29,18 @@ Explore hackathons, gigs, workshops and festivals, register in under 30 seconds 
 ## 📚 Contents
 
 1. [About the project](#-about-the-project)
-2. [Requirements checklist](#-requirements-checklist)
-3. [Bonus challenges](#-bonus-challenges--all-done)
-4. [Beyond the brief](#-beyond-the-brief)
-5. [Tech stack](#-tech-stack)
-6. [Architecture](#-architecture)
-7. [How it works](#-how-it-works) — validation, Local Storage, auth, seat counting
-8. [Project structure](#-project-structure)
-9. [API reference](#-api-reference)
-10. [Getting started](#-getting-started)
-11. [Deployment](#-deployment)
-12. [Screenshots](#-screenshots)
+2. [Design](#-design) — palette, dusk scene, FlexCarousel
+3. [Requirements checklist](#-requirements-checklist)
+4. [Bonus challenges](#-bonus-challenges--all-done)
+5. [Beyond the brief](#-beyond-the-brief)
+6. [Tech stack](#-tech-stack)
+7. [Architecture](#-architecture)
+8. [How it works](#-how-it-works) — validation, Local Storage, auth, seat counting
+9. [Project structure](#-project-structure)
+10. [API reference](#-api-reference)
+11. [Getting started](#-getting-started)
+12. [Deployment](#-deployment)
+13. [Screenshots](#-screenshots)
 
 ---
 
@@ -49,12 +50,32 @@ Explore hackathons, gigs, workshops and festivals, register in under 30 seconds 
 
 It is a single-page React application backed by a small REST API and a MongoDB Atlas database:
 
-- **Home** — animated hero with live search, a featured-events bento grid, upcoming events grouped by month, category tiles, “how it works”, live stats and testimonials.
+- **Home** — a low-poly *mountain-lake-at-dusk* hero (moon at night, sun at dawn) with live search, a WebGL **FlexCarousel** reel of the whole season, a featured-events bento grid, upcoming events grouped by month, category tiles, “how it works”, live stats and testimonials.
 - **Explore** — search, category / date / price / format filters, sorting, grid ↔ list views and “load more” pagination. Filters live in the URL, so every result page is shareable.
 - **Event details** — cover hero with parallax, live countdown, seats meter, schedule, speakers, venue map, FAQ accordion, share and add-to-calendar.
 - **Register** — a validated form (name, email, phone, selected event, tickets) with a **live ticket preview** that fills in as you type, then confetti and a QR ticket on success.
 - **My Tickets** — every registration is kept in **Local Storage** (works offline), synced with the server, exportable to JSON/CSV and importable.
 - **Host** — sign in with Google to publish your own events and see who registered.
+
+---
+
+## 🎨 Design
+
+The whole interface is built from one six-colour palette — *dusk over a mountain lake*:
+
+| Swatch | Hex | Role |
+| --- | --- | --- |
+| ![#213843](https://placehold.co/24x24/213843/213843.png) | `#213843` | **Deep** — dark surfaces, light-mode text, button ink |
+| ![#468D8B](https://placehold.co/24x24/468D8B/468D8B.png) | `#468D8B` | **Teal** — secondary accents, links, lake |
+| ![#74B3A8](https://placehold.co/24x24/74B3A8/74B3A8.png) | `#74B3A8` | **Sage** — success states, highlights |
+| ![#F6DAC0](https://placehold.co/24x24/F6DAC0/F6DAC0.png) | `#F6DAC0` | **Cream** — dark-mode text, moon, light-mode canvas |
+| ![#FEAF76](https://placehold.co/24x24/FEAF76/FEAF76.png) | `#FEAF76` | **Apricot** — primary actions (7:1 contrast with deep ink), sun |
+| ![#DA6D58](https://placehold.co/24x24/DA6D58/DA6D58.png) | `#DA6D58` | **Terracotta** — mountains, warnings & errors, emphasis |
+
+- **Dark mode = dusk** (deep-teal sky, cream type, a moon and stars); **light mode = dawn** (cream sky, deep type, a rising sun). Every colour is a CSS custom property, so the hero scene, ticket, map and charts re-tint with the theme.
+- The hero landscape (`components/home/DuskScene.jsx`) is a hand-built SVG: layered low-poly peaks with parallax, a reflective lake with drifting light, and a bobbing sailboat.
+- The **FlexCarousel** from [React Bits](https://reactbits.dev) (`npx shadcn@latest add @react-bits/FlexCarousel-JS-CSS`) renders the season’s event covers on WebGL through a liquid-glass lens — drag, swipe, arrow keys or autoplay; clicking the centred cover opens the event. It is lazy-loaded and falls back to a scroll-snap strip without WebGL 2.
+- Typography: Bricolage Grotesque (display), Geist (text), Geist Mono (numbers).
 
 ---
 
@@ -83,7 +104,7 @@ It is a single-page React application backed by a small REST API and a MongoDB A
 | --- | --- |
 | 🌗 **Dark / light mode** | `context/ThemeContext.jsx` — follows the OS by default, remembers your choice, no flash on load (inline script in `index.html`), and switches with a **circular reveal animation** using the View Transitions API |
 | ⏳ **Event countdown timers** | `components/events/Countdown.jsx` — flip-style digits on the event page and ticket view, compact live timers on every card |
-| 🎞️ **Animations** | Motion (Framer Motion) springs, scroll reveals, shared-layout pills, split-text headlines, 3D tilt, marquees, confetti — all disabled automatically for `prefers-reduced-motion` |
+| 🎞️ **Animations** | Motion (Framer Motion) springs, scroll reveals, shared-layout pills, split-text headlines, 3D tilt, parallax mountains, a WebGL liquid-glass carousel, marquees, confetti — all toned down automatically for `prefers-reduced-motion` |
 | 💾 **Local Storage registration management** | `lib/storage.js` — tickets, saved events, recently viewed, form profile and view preferences persist on the device. The **My Tickets** page lets you view, cancel, sync, export (JSON/CSV), import and clear them; stores stay in sync across tabs via the `storage` event |
 
 ## 🚀 Beyond the brief
@@ -106,7 +127,7 @@ It is a single-page React application backed by a small REST API and a MongoDB A
 
 | Layer | Technologies |
 | --- | --- |
-| **Frontend** | React 19, Vite 8, Tailwind CSS 4, React Router 7, TanStack Query 5, Motion, Lenis, cmdk, Sonner, qrcode.react, canvas-confetti, html-to-image, lucide-react, date/number formatting via `Intl` |
+| **Frontend** | React 19, Vite 8, Tailwind CSS 4, React Router 7, TanStack Query 5, Motion, Lenis, React Bits FlexCarousel (ogl / WebGL 2), cmdk, Sonner, qrcode.react, canvas-confetti, html-to-image, lucide-react, date/number formatting via `Intl` |
 | **Backend** | Node.js 22, Express 5, Mongoose 9, Zod 4, google-auth-library, jsonwebtoken, Helmet, express-rate-limit, compression |
 | **Database** | MongoDB Atlas (M0, AWS Singapore) |
 | **Auth** | Google Identity Services (OAuth 2.0 popup code flow + One Tap) |
@@ -189,7 +210,8 @@ Each store is a tiny observable (`subscribe` / `getSnapshot`) read with React’
 │       ├── components/
 │       │   ├── auth/           # Google button, sign-in dialog, One Tap
 │       │   ├── events/         # EventCard, Countdown, seats meter, share, calendar
-│       │   ├── home/           # Hero and landing-page sections
+│       │   ├── home/           # Hero, dusk scene, season carousel, landing sections
+│       │   ├── reactbits/      # FlexCarousel (vendored from React Bits)
 │       │   ├── layout/         # Navbar, Footer, command palette, root layout
 │       │   ├── registration/   # Form fields, event picker
 │       │   ├── tickets/        # TicketCard (QR ticket)
@@ -303,6 +325,8 @@ npm run dev                 # http://localhost:5173 (proxies /api → :4000)
 | Dark | Light |
 | --- | --- |
 | ![Home — dark](docs/screenshots/home-dark.jpg) | ![Home — light](docs/screenshots/home-light.jpg) |
+| ![Mountain-lake hero scene — dusk](docs/screenshots/scene-dark.jpg) | ![Mountain-lake hero scene — dawn](docs/screenshots/scene-light.jpg) |
+| ![FlexCarousel season reel — dark](docs/screenshots/carousel-dark.jpg) | ![FlexCarousel season reel — light](docs/screenshots/carousel-light.jpg) |
 | ![Featured events bento](docs/screenshots/featured-dark.jpg) | ![Event details — light](docs/screenshots/event-detail-light.jpg) |
 | ![Explore with filters](docs/screenshots/explore-dark.jpg) | ![Registration with live ticket preview](docs/screenshots/register-light.jpg) |
 | ![Event hero](docs/screenshots/event-dark.jpg) | |
@@ -318,7 +342,8 @@ npm run dev                 # http://localhost:5173 (proxies /api → :4000)
 ## 🙏 Credits
 
 - Event photography from [Unsplash](https://unsplash.com) (Unsplash License). Event names, organisers and people are fictional demo data.
-- UI inspiration: React Bits, Aceternity UI, Dribbble and Mobbin. All components were written for this project.
+- [FlexCarousel](https://reactbits.dev) by React Bits (vendored in `client/src/components/reactbits/`). UI inspiration: Aceternity UI, Dribbble and Mobbin; every other component was written for this project.
+- Colour palette inspired by a dusk mountain-lake poster by Luca Davincci.
 - Icons by [Lucide](https://lucide.dev); fonts by [Fontsource](https://fontsource.org).
 
 <div align="center">

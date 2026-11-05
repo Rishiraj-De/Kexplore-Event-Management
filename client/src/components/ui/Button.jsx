@@ -9,7 +9,7 @@ const variants = {
   dark: 'bg-fg text-bg hover:-translate-y-0.5 active:translate-y-0 font-semibold hover:shadow-soft',
   outline: 'border border-line bg-surface/60 text-fg hover:bg-surface-2 hover:border-fg/20 backdrop-blur',
   ghost: 'text-fg hover:bg-surface-2',
-  danger: 'bg-coral/10 text-coral border border-coral/25 hover:bg-coral hover:text-white',
+  danger: 'bg-danger/10 text-danger border border-danger/25 hover:bg-danger hover:text-white',
 };
 
 const sizes = {

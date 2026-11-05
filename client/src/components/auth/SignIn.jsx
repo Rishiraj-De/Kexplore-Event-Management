@@ -59,7 +59,7 @@ export function SignInDialog() {
           </li>
         ))}
       </ul>
-      {googleEnabled ? <GoogleButton /> : <p className="text-center text-sm text-coral">Google sign-in is not configured.</p>}
+      {googleEnabled ? <GoogleButton /> : <p className="text-center text-sm text-danger">Google sign-in is not configured.</p>}
       <p className="mt-4 text-center text-xs text-muted">We only read your name, email and profile photo.</p>
     </Dialog>
   );

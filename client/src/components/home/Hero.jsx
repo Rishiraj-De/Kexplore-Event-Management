@@ -8,8 +8,9 @@ import { compactNumber, formatShortDate } from '@/lib/format';
 import { cn, imageAt } from '@/lib/utils';
 import { MiniCountdown } from '../events/Countdown';
 import { Button } from '../ui/Button';
-import { Aurora, SplitText, TiltCard, WordRotate } from '../ui/Effects';
+import { SplitText, TiltCard, WordRotate } from '../ui/Effects';
 import { Avatar, Skeleton } from '../ui/Misc';
+import { DuskScene, HeroSky } from './DuskScene';
 
 const ease = [0.16, 1, 0.3, 1];
 
@@ -73,15 +74,15 @@ function TicketStack() {
           className={cn('absolute w-full transition-transform duration-700 ease-out-expo hover:z-20', transforms[i], i !== 1 && 'hidden lg:block')}
         >
           <TiltCard max={10}>
-            <Link to={`/events/${event.slug}`} className="block overflow-hidden rounded-[28px] border border-white/10 bg-[#101016] text-white shadow-2xl shadow-black/40">
+            <Link to={`/events/${event.slug}`} className="block overflow-hidden rounded-[28px] border border-white/10 bg-night text-white shadow-2xl shadow-black/40">
               <div className="relative h-48 overflow-hidden">
                 <img src={imageAt(event.coverImage, 700)} alt="" className="size-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#101016] via-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-night via-transparent" />
                 <span className="absolute left-4 top-4 rounded-full bg-brand px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-widest text-brand-ink">
                   Featured
                 </span>
               </div>
-              <div className="ticket-notch bg-[#101016] px-5 pb-5 pt-2 [--notch-y:58%]">
+              <div className="ticket-notch bg-night px-5 pb-5 pt-2 [--notch-y:58%]">
                 <h3 className="text-xl font-bold leading-tight">{event.title}</h3>
                 <div className="mt-3 space-y-1.5 text-sm text-white/70">
                   <p className="flex items-center gap-2">
@@ -117,8 +118,9 @@ export function Hero() {
   const attendees = meta?.stats?.attendees ?? 16000;
 
   return (
-    <section className="relative isolate overflow-hidden pb-20 pt-28 sm:pt-36">
-      <Aurora />
+    <section className="relative isolate overflow-hidden pb-[clamp(150px,21vw,300px)] pt-28 sm:pt-36">
+      <HeroSky />
+      <DuskScene className="h-[clamp(210px,29vw,420px)]" />
       <div className="container-x">
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease }}>
           <Link
@@ -143,7 +145,8 @@ export function Hero() {
           >
             <WordRotate
               words={['big night out.', 'hackathon.', 'front row.', 'jam session.', 'obsession.']}
-              className="text-gradient animate-gradient-pan pr-2"
+              colors={['var(--word-1)', 'var(--word-2)', 'var(--word-3)', 'var(--word-4)', 'var(--word-5)']}
+              className="pr-2"
             />
           </motion.span>
         </h1>

@@ -4,7 +4,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import globals from 'globals';
 
 export default [
-  { ignores: ['dist', 'node_modules'] },
+  { ignores: ['dist', 'node_modules', 'src/components/reactbits/**'] }, // vendored React Bits code
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {

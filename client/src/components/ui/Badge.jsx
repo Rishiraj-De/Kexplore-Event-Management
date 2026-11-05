@@ -6,10 +6,10 @@ export function Badge({ className, children, tone = 'neutral', ...props }) {
     neutral: 'bg-surface-2 text-fg border-line',
     glass: 'glass text-fg border-white/15',
     brand: 'bg-brand text-brand-ink border-transparent',
-    ok: 'bg-emerald-500/12 text-emerald-600 dark:text-emerald-400 border-emerald-500/20',
-    warn: 'bg-amber/15 text-amber-700 dark:text-amber border-amber/25',
-    danger: 'bg-coral/12 text-coral border-coral/25',
-    live: 'bg-coral text-white border-transparent',
+    ok: 'bg-success/12 text-success border-success/20',
+    warn: 'bg-warn/15 text-warn border-warn/25',
+    danger: 'bg-danger/12 text-danger border-danger/25',
+    live: 'bg-danger text-white border-transparent',
   };
   return (
     <span

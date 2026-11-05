@@ -224,7 +224,7 @@ export default function Register() {
                   <span className="font-mono text-muted">{completed}/5 complete</span>
                 </div>
                 <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-surface-2">
-                  <motion.div className="h-full rounded-full bg-gradient-to-r from-violet via-sky to-brand" animate={{ width: `${progress * 100}%` }} transition={{ type: 'spring', stiffness: 120, damping: 20 }} />
+                  <motion.div className="h-full rounded-full bg-gradient-to-r from-teal via-sage to-brand" animate={{ width: `${progress * 100}%` }} transition={{ type: 'spring', stiffness: 120, damping: 20 }} />
                 </div>
               </div>
 
@@ -290,7 +290,7 @@ export default function Register() {
                     inputRef={refs.email}
                   />
                   {emailSuggestion && (
-                    <motion.p initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} className="mt-2 pl-1 text-sm text-amber-700 dark:text-amber">
+                    <motion.p initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} className="mt-2 pl-1 text-sm text-warn">
                       Did you mean{' '}
                       <button type="button" onClick={() => set('email', emailSuggestion)} className="font-semibold underline underline-offset-4">
                         {emailSuggestion}
@@ -334,7 +334,7 @@ export default function Register() {
 
               <div className="my-8 h-px bg-line" />
 
-              <label className={cn('flex cursor-pointer items-start gap-3 rounded-2xl border p-4 transition', visibleError('agree') ? 'border-coral bg-coral/5' : 'border-line hover:bg-surface-2')}>
+              <label className={cn('flex cursor-pointer items-start gap-3 rounded-2xl border p-4 transition', visibleError('agree') ? 'border-danger bg-danger/5' : 'border-line hover:bg-surface-2')}>
                 <input
                   ref={refs.agree}
                   type="checkbox"
@@ -344,11 +344,11 @@ export default function Register() {
                     blur('agree');
                   }}
                   aria-invalid={Boolean(visibleError('agree'))}
-                  className="mt-0.5 size-5 shrink-0 cursor-pointer accent-[#7c5cff]"
+                  className="mt-0.5 size-5 shrink-0 cursor-pointer accent-[#468d8b]"
                 />
                 <span className="text-sm">
                   I agree to the event <span className="font-semibold">code of conduct</span> and understand my details will be shared with the organiser for check-in.
-                  {visibleError('agree') && <span className="mt-1 block text-coral">{visibleError('agree')}</span>}
+                  {visibleError('agree') && <span className="mt-1 block text-danger">{visibleError('agree')}</span>}
                 </span>
               </label>
 
