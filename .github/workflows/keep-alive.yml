@@ -1,0 +1,21 @@
+name: Keep API warm
+
+# Render's free tier sleeps after 15 minutes without traffic. A light ping every
+# 10 minutes keeps the first page load fast for visitors.
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Ping API health endpoint
+        run: |
+          for i in 1 2 3; do
+            if curl -fsS --max-time 60 https://kexplore-api.onrender.com/api/health; then exit 0; fi
+            sleep 10
+          done
+          echo "API did not respond (it may be deploying)"; exit 0

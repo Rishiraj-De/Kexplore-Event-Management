@@ -1,0 +1,5 @@
+server
+*.docx
+.github
+**/node_modules
+**/dist

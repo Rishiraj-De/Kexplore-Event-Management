@@ -8,8 +8,10 @@ import { env } from './config/env.js';
 import { errorHandler, notFound } from './middleware/error.js';
 import apiRoutes from './routes/index.js';
 
-// Our own Vercel deployments (production + previews) may call the API directly.
-const VERCEL_ORIGIN = /^https:\/\/kexplore[a-z0-9-]*\.vercel\.app$/;
+// Production front-ends plus this project's Vercel preview deployments may call the API directly.
+// (In production the browser normally goes through Vercel's same-origin /api rewrite instead.)
+const PRODUCTION_ORIGINS = ['https://kexplore-events.vercel.app', 'https://kexplore-ten.vercel.app'];
+const VERCEL_PREVIEW = /^https:\/\/kexplore-[a-z0-9]+-skynet16\.vercel\.app$/;
 
 export function createApp() {
   const app = express();
@@ -20,7 +22,8 @@ export function createApp() {
   app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
   app.use(
     cors({
-      origin: (origin, cb) => cb(null, !origin || env.clientOrigins.includes(origin) || VERCEL_ORIGIN.test(origin)),
+      origin: (origin, cb) =>
+        cb(null, !origin || PRODUCTION_ORIGINS.includes(origin) || env.clientOrigins.includes(origin) || VERCEL_PREVIEW.test(origin)),
       credentials: true,
     }),
   );

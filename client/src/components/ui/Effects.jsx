@@ -108,7 +108,11 @@ export function CountUp({ value, duration = 1.8, format = (n) => Math.round(n).t
 export function WordRotate({ words, interval = 2600, className }) {
   const [index, setIndex] = useState(0);
   useEffect(() => {
-    const id = setInterval(() => setIndex((i) => (i + 1) % words.length), interval);
+    // Skip ticks while the tab is hidden: animation frames pause there, so exit animations
+    // would never finish and the words would pile up on top of each other.
+    const id = setInterval(() => {
+      if (!document.hidden) setIndex((i) => (i + 1) % words.length);
+    }, interval);
     return () => clearInterval(id);
   }, [words.length, interval]);
 
