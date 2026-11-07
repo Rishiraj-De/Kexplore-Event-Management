@@ -2,7 +2,7 @@ import { RefreshCw } from 'lucide-react';
 import { motion } from 'motion/react';
 import { Navigate, useLocation } from 'react-router';
 import { useAuth } from '@/context/AuthContext';
-import { SummitMark } from '../ui/Misc';
+import { EventonMark } from '../ui/Misc';
 
 function Splash({ error, onRetry }) {
   return (
@@ -13,11 +13,11 @@ function Splash({ error, onRetry }) {
           animate={error ? undefined : { y: [0, -8, 0] }}
           transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
         >
-          <SummitMark className="size-14" />
+          <EventonMark className="size-14" />
         </motion.span>
         {error ? (
           <>
-            <p className="mt-6 font-semibold">We couldn’t reach Summit</p>
+            <p className="mt-6 font-semibold">We couldn’t reach Eventon</p>
             <p className="mt-1 max-w-xs text-sm text-muted">The server may still be waking up. Check your connection and try again.</p>
             <button type="button" onClick={onRetry} className="mt-5 inline-flex items-center gap-2 rounded-full bg-fg px-5 py-2.5 text-sm font-semibold text-bg">
               <RefreshCw className="size-4" /> Try again

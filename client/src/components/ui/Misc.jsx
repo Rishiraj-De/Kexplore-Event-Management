@@ -11,23 +11,29 @@ const AVATAR_GRADIENTS = [
   ['#c4613f', '#7c3a30'],
 ];
 
-/** The Summit mark: a peak with a flag planted on top. Drawn in `currentColor`. */
-export function SummitMark({ className }) {
+/**
+ * The Eventon mark: a calendar page with a switch flipped "on" — your event, on.
+ * Drawn in `currentColor` on an apricot badge (the switch knob shows the badge colour).
+ */
+export function EventonMark({ className }) {
   return (
     <svg viewBox="0 0 32 32" className={className} aria-hidden>
-      <path d="M4 25 12.6 11.2a1.6 1.6 0 0 1 2.7 0L20 18.6l2-3.1a1.5 1.5 0 0 1 2.5 0L29 25Z" fill="currentColor" />
-      <path d="M13.95 11V4.6l5 1.9-5 1.9" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinejoin="round" strokeLinecap="round" />
+      <rect x="6.5" y="8.5" width="19" height="17" rx="3.5" fill="none" stroke="currentColor" strokeWidth="2.6" />
+      <path d="M6.5 13.5h19" stroke="currentColor" strokeWidth="2.6" />
+      <path d="M11.5 6v4.5M20.5 6v4.5" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" />
+      <rect x="9.5" y="16.5" width="13" height="6.5" rx="3.25" fill="currentColor" />
+      <circle cx="19.25" cy="19.75" r="2" fill="var(--color-brand, #feaf76)" />
     </svg>
   );
 }
 
 export function Logo({ className, compact = false }) {
   return (
-    <Link to="/" className={cn('group inline-flex items-center gap-2.5', className)} aria-label="Summit home">
+    <Link to="/" className={cn('group inline-flex items-center gap-2.5', className)} aria-label="Eventon home">
       <span className="relative grid size-9 place-items-center rounded-[11px] bg-brand text-brand-ink shadow-[inset_0_-3px_0_rgb(0_0_0/0.12)] transition-transform duration-500 ease-out-expo group-hover:-translate-y-0.5 group-hover:scale-105">
-        <SummitMark className="size-9" />
+        <EventonMark className="size-9" />
       </span>
-      {!compact && <span className="font-display text-xl font-bold tracking-tight">summit</span>}
+      {!compact && <span className="font-display text-xl font-bold tracking-tight">eventon</span>}
     </Link>
   );
 }

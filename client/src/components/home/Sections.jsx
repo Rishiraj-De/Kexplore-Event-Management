@@ -251,7 +251,7 @@ export function HowItWorks() {
 // ── Stats + testimonials ─────────────────────────────────────────────────────
 const testimonials = [
   { name: 'Ananya Mishra', role: 'CSE, 3rd year', text: 'Registered for HackKalinga in literally 20 seconds. The QR ticket on my phone got me straight through the gate.' },
-  { name: 'Rohan Patnaik', role: 'Event organiser', text: 'Hosting on Summit was painless. I could see who registered in real time and the page looked better than our own website.' },
+  { name: 'Rohan Patnaik', role: 'Event organiser', text: 'Hosting on Eventon was painless. I could see who registered in real time and the page looked better than our own website.' },
   { name: 'Ishita Rao', role: 'Design student', text: 'The dark mode is gorgeous and the countdowns make me way too excited for every event I save.' },
   { name: 'Kabir Sen', role: 'Photographer', text: 'Found the Old Town photo walk through the search bar. Now I check the “this week” filter every Monday.' },
   { name: 'Meera Iyer', role: 'Product manager', text: 'Add-to-calendar plus reminders means I actually show up to the things I sign up for. Revolutionary.' },
@@ -324,7 +324,7 @@ export function SocialProof() {
       : { value: stats?.upcoming ?? 0, suffix: '', label: 'upcoming events' },
   ];
   return (
-    <section className="py-20" aria-label="Summit in numbers">
+    <section className="py-20" aria-label="Eventon in numbers">
       <div className="container-x">
         <div className="grid grid-cols-2 gap-px overflow-hidden rounded-[28px] border border-line bg-line lg:grid-cols-4">
           {items.map((s) => (

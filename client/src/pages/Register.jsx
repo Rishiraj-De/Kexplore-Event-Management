@@ -210,7 +210,7 @@ export default function Register() {
 
   return (
     <>
-      <title>Register · Summit</title>
+      <title>Register · Eventon</title>
       <section className="relative isolate overflow-hidden pb-24 pt-32 sm:pt-40">
         <Aurora intensity={0.5} />
         <div className="container-x">

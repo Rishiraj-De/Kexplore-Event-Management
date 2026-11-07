@@ -1,8 +1,8 @@
 {
-  "name": "summit-web",
+  "name": "eventon-web",
   "private": true,
   "version": "1.0.0",
-  "description": "Summit — a responsive event discovery & registration platform built with React, Tailwind CSS and Motion.",
+  "description": "Eventon — a responsive event discovery & registration platform built with React, Tailwind CSS and Motion.",
   "type": "module",
   "scripts": {
     "dev": "vite",

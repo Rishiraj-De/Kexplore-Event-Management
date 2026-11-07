@@ -136,7 +136,7 @@ export async function createEvent(req, res) {
     organizer: { name: req.user.name, email: req.user.email },
     host: req.user._id,
     faqs: [
-      { q: 'How do I get my ticket?', a: 'Register on Summit and your QR ticket appears instantly under My Tickets.' },
+      { q: 'How do I get my ticket?', a: 'Register on Eventon and your QR ticket appears instantly under My Tickets.' },
       { q: 'Can I cancel?', a: 'Yes — cancel any time from My Tickets and your seat is released for someone else.' },
     ],
   });

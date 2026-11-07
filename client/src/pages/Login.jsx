@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { Navigate, useSearchParams } from 'react-router';
 import { GoogleButton, OneTap } from '@/components/auth/SignIn';
 import { LoginForm, SmokeyBackground } from '@/components/twentyfirst/LoginForm';
-import { SummitMark } from '@/components/ui/Misc';
+import { EventonMark } from '@/components/ui/Misc';
 import { useAuth } from '@/context/AuthContext';
 import { useEventList } from '@/hooks/useQueries';
 import { categoryById } from '@/lib/constants';
@@ -20,7 +20,7 @@ function ComingUp() {
 
   return (
     <div className="mt-10 max-w-md">
-      <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-white/55">Coming up on Summit</p>
+      <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-white/55">Coming up on Eventon</p>
       <ul className="mt-4 space-y-3">
         {events.map((event, i) => (
           <motion.li
@@ -58,7 +58,7 @@ export default function Login() {
 
   return (
     <main className="dark relative isolate min-h-svh overflow-hidden bg-[#152630] text-white">
-      <title>Sign in · Summit</title>
+      <title>Sign in · Eventon</title>
       <SmokeyBackground color="#da6d58" baseColor="#13222b" backdropBlurAmount="sm" className="-z-10" />
       <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-[#13222b]/80 via-[#13222b]/30 to-transparent" />
 
@@ -66,9 +66,9 @@ export default function Login() {
         <motion.section initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
           <div className="flex items-center gap-2.5">
             <span className="grid size-10 place-items-center rounded-xl bg-apricot text-deep">
-              <SummitMark className="size-10" />
+              <EventonMark className="size-10" />
             </span>
-            <span className="font-display text-2xl font-bold tracking-tight">summit</span>
+            <span className="font-display text-2xl font-bold tracking-tight">eventon</span>
           </div>
           <h1 className="mt-8 max-w-xl font-display text-5xl font-extrabold leading-[0.95] tracking-[-0.035em] sm:text-6xl lg:text-7xl">
             Your next great event starts at the door.

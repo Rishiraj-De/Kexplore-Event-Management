@@ -67,7 +67,7 @@ export function BookmarkButton({ event, className, variant = 'glass', size = 20 
         pillColor={onImage ? 'rgb(21 38 48 / 0.55)' : theme === 'dark' ? '#233c48' : '#f3e2cf'}
         textColor={onImage ? '#ffffff' : theme === 'dark' ? '#f7e8da' : '#213843'}
         label={saved ? `Remove ${event.title} from your wishlist` : `Add ${event.title} to your wishlist`}
-        className={cn('summit-heart', onImage && 'summit-heart--glass')}
+        className={cn('eventon-heart', onImage && 'eventon-heart--glass')}
       />
     </span>
   );
@@ -161,7 +161,7 @@ export function BookingSlider({ label, errorLabel, onConfirm, onDone, disabled, 
           dangerColor={dark ? '#e57d67' : '#bf4f3b'}
           speed={55}
           holdMs={1600}
-          className="summit-slide"
+          className="eventon-slide"
         />
       )}
     </div>

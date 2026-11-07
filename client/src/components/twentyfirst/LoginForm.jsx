@@ -1,6 +1,6 @@
 /**
  * Adapted from the 21st.dev "Login Form" by minhxthanh (smokey WebGL background + glass form).
- * Changes for Summit:
+ * Changes for Eventon:
  *  • the shader blends between two palette colours instead of fading to black, and keeps one
  *    WebGL program alive (the original rebuilt it on every mouse move and never stopped its loop);
  *  • the form is a real sign-in / create-account form shaped like an event pass, with validation,
@@ -258,14 +258,14 @@ export function LoginForm({ onSubmit, googleButton, busy = false, className }) {
   return (
     <div
       className={cn(
-        'summit-pass relative w-full max-w-sm rounded-[28px] border border-white/20 bg-white/10 text-white shadow-2xl backdrop-blur-lg',
+        'eventon-pass relative w-full max-w-sm rounded-[28px] border border-white/20 bg-white/10 text-white shadow-2xl backdrop-blur-lg',
         className,
       )}
     >
       {/* Pass header */}
       <div className="flex h-[104px] flex-col justify-center px-8">
         <p className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.24em] text-white/60">
-          <span>Summit pass</span>
+          <span>Eventon pass</span>
           <span>Admit one</span>
         </p>
         <h2 className="mt-2 font-display text-[1.75rem] font-bold leading-tight tracking-tight">
@@ -359,7 +359,7 @@ export function LoginForm({ onSubmit, googleButton, busy = false, className }) {
         )}
 
         <p className="text-center text-xs text-white/60">
-          {signup ? 'Already have an account? ' : 'New to Summit? '}
+          {signup ? 'Already have an account? ' : 'New to Eventon? '}
           <button type="button" onClick={() => switchMode(signup ? 'signin' : 'signup')} className="font-semibold text-apricot hover:text-[#ffc093]">
             {signup ? 'Sign in' : 'Create an account'}
           </button>

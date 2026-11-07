@@ -152,7 +152,7 @@ export function registrationsToCSV(list) {
 export function parseRegistrationBackup(text) {
   const data = JSON.parse(text);
   const list = Array.isArray(data) ? data : data?.registrations;
-  if (!Array.isArray(list)) throw new Error('This file is not a Summit tickets backup');
+  if (!Array.isArray(list)) throw new Error('This file is not a Eventon tickets backup');
   return list.filter((r) => /^KX-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(r?.ticketCode) && r?.event?.title);
 }
 

@@ -134,7 +134,7 @@ export default function EventDetail() {
 
   return (
     <>
-      <title>{`${event.title} · Summit`}</title>
+      <title>{`${event.title} · Eventon`}</title>
       <meta name="description" content={event.shortDescription} />
 
       {/* ── Hero ── */}

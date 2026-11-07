@@ -77,7 +77,7 @@ export function CommandPalette() {
             className="relative w-full max-w-xl"
           >
             <Command
-              label="Search Summit"
+              label="Search Eventon"
               shouldFilter={false}
               loop
               onKeyDown={(e) => e.key === 'Escape' && setOpen(false)}

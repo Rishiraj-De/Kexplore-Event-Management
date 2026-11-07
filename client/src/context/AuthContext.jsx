@@ -69,7 +69,7 @@ export function AuthProvider({ children }) {
   // Email + password: errors are shown inside the form, so no toast here.
   const passwordMutation = useMutation({
     mutationFn: ({ mode, ...body }) => (mode === 'signup' ? endpoints.signUp(body) : endpoints.passwordSignIn(body)),
-    onSuccess: ({ user: signedIn }, { mode }) => welcome(signedIn, mode === 'signup' ? 'Your Summit account is ready.' : 'You’re signed in.'),
+    onSuccess: ({ user: signedIn }, { mode }) => welcome(signedIn, mode === 'signup' ? 'Your Eventon account is ready.' : 'You’re signed in.'),
   });
 
   const signOut = useCallback(async () => {

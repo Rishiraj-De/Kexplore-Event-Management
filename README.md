@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="client/public/favicon.svg" width="64" alt="Summit logo" />
+<img src="client/public/favicon.svg" width="64" alt="Eventon logo" />
 
-# Summit
+# Eventon
 
 **A modern, fully responsive event discovery & registration platform.**
 Explore hackathons, gigs, workshops and festivals, register in under 30 seconds and walk in with a QR ticket.
@@ -20,7 +20,7 @@ Explore hackathons, gigs, workshops and festivals, register in under 30 seconds 
 ![Deployed on Vercel](https://img.shields.io/badge/Frontend-Vercel-000?logo=vercel)
 ![API on Render](https://img.shields.io/badge/API-Render-46e3b7?logo=render&logoColor=black)
 
-<img src="docs/screenshots/home-dark.jpg" alt="Summit home page in dark mode" width="100%" />
+<img src="docs/screenshots/home-dark.jpg" alt="Eventon home page in dark mode" width="100%" />
 
 </div>
 
@@ -46,7 +46,7 @@ Explore hackathons, gigs, workshops and festivals, register in under 30 seconds 
 
 ## ✨ About the project
 
-**Summit** (formerly Kexplore) was built for the *K Explore – Web Designing* task: *design and develop a responsive event management website where users can explore upcoming events, view details and register.*
+**Eventon** (formerly Kexplore, then Summit) was built for the *K Explore – Web Designing* task: *design and develop a responsive event management website where users can explore upcoming events, view details and register.*
 
 It is a single-page React application backed by a small REST API and a MongoDB Atlas database:
 

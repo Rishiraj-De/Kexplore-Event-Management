@@ -1,5 +1,5 @@
 /**
- * Thin fetch wrapper around the Summit REST API.
+ * Thin fetch wrapper around the Eventon REST API.
  * The API is served from the same origin (`/api`) — Vite proxies it in development and
  * Vercel rewrites it to Render in production — so cookies stay first-party.
  */

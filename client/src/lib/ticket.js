@@ -18,6 +18,6 @@ export function celebrate() {
 export async function downloadTicketImage(node, code) {
   const { toPng } = await import('html-to-image');
   const dataUrl = await toPng(node, { pixelRatio: 2, cacheBust: true, backgroundColor: getComputedStyle(document.body).backgroundColor });
-  const a = Object.assign(document.createElement('a'), { href: dataUrl, download: `summit-ticket-${code}.png` });
+  const a = Object.assign(document.createElement('a'), { href: dataUrl, download: `eventon-ticket-${code}.png` });
   a.click();
 }

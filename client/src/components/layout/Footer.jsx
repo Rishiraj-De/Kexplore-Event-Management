@@ -59,7 +59,7 @@ export function Footer() {
         <div className="space-y-8">
           <Logo />
           <p className="max-w-sm text-muted">
-            Summit helps you find the events worth leaving the house for — and gets you in the door with a QR ticket in under 30 seconds.
+            Eventon helps you find the events worth leaving the house for — and gets you in the door with a QR ticket in under 30 seconds.
           </p>
           <Newsletter />
         </div>
@@ -120,12 +120,12 @@ export function Footer() {
       {/* Oversized wordmark */}
       <div aria-hidden className="pointer-events-none select-none px-2">
         <p className="text-gradient animate-gradient-pan text-center font-display text-[24vw] font-extrabold leading-[0.75] tracking-tighter opacity-90 mask-fade-b">
-          summit
+          eventon
         </p>
       </div>
 
       <div className="container-x flex flex-col items-center justify-between gap-3 border-t border-line py-6 text-xs text-muted sm:flex-row">
-        <p>© {year} Summit. Crafted with React, Tailwind CSS & Motion.</p>
+        <p>© {year} Eventon. Crafted with React, Tailwind CSS & Motion.</p>
         <p>Images from Unsplash · Dates shown in IST</p>
       </div>
     </footer>

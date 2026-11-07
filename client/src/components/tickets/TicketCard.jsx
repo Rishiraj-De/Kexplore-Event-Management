@@ -3,7 +3,7 @@ import { forwardRef } from 'react';
 import { categoryById } from '@/lib/constants';
 import { formatShortDate, formatTime } from '@/lib/format';
 import { cn, imageAt } from '@/lib/utils';
-import { SummitMark } from '../ui/Misc';
+import { EventonMark } from '../ui/Misc';
 
 const Label = ({ children }) => <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-white/45">{children}</p>;
 
@@ -35,9 +35,9 @@ export const TicketCard = forwardRef(function TicketCard({ registration, preview
         <div className="absolute inset-x-5 top-4 flex items-center justify-between">
           <span className="flex items-center gap-2 font-display text-sm font-bold tracking-tight">
             <span className="grid size-6 place-items-center rounded-md bg-brand text-brand-ink">
-              <SummitMark className="size-6" />
+              <EventonMark className="size-6" />
             </span>
-            summit
+            eventon
           </span>
           <span className="rounded-full bg-black/40 px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] backdrop-blur">
             Admit {tickets}

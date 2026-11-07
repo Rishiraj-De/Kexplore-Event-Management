@@ -49,7 +49,7 @@ export function SignInDialog() {
           <ShieldCheck className="size-8" />
           <span className="absolute -inset-2 -z-10 rounded-3xl bg-brand/30 blur-xl" />
         </div>
-        <h2 className="text-2xl font-bold tracking-tight">Sign in to Summit</h2>
+        <h2 className="text-2xl font-bold tracking-tight">Sign in to Eventon</h2>
         <p className="mt-2 text-sm text-muted">{dialog.reason || 'One tap with Google — no passwords to remember.'}</p>
       </div>
       <ul className="my-6 space-y-2.5">

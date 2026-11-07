@@ -1,5 +1,5 @@
 /**
- * Seed catalogue for Summit. Times are IST (UTC+05:30).
+ * Seed catalogue for Eventon. Times are IST (UTC+05:30).
  * Cover images are hosted on Unsplash (free to use under the Unsplash License).
  */
 const img = (id) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1600&q=80`;
@@ -571,7 +571,7 @@ Transport from campus, breakfast, gloves and a volunteer t-shirt are provided. V
     capacity: 300,
     registeredCount: 164,
     featured: false,
-    organizer: { name: 'Summit Community' },
+    organizer: { name: 'Eventon Community' },
   },
   // ── Past events (shown under the "Past" filter) ───────────────────────────
   {

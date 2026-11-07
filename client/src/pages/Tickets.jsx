@@ -151,11 +151,11 @@ export default function Tickets() {
   };
 
   const exportJSON = () => {
-    downloadFile(`summit-tickets-${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify({ app: 'summit', exportedAt: new Date().toISOString(), registrations }, null, 2), 'application/json');
+    downloadFile(`eventon-tickets-${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify({ app: 'eventon', exportedAt: new Date().toISOString(), registrations }, null, 2), 'application/json');
     toast.success('Backup downloaded');
   };
   const exportCSV = () => {
-    downloadFile(`summit-tickets-${new Date().toISOString().slice(0, 10)}.csv`, registrationsToCSV(registrations), 'text/csv');
+    downloadFile(`eventon-tickets-${new Date().toISOString().slice(0, 10)}.csv`, registrationsToCSV(registrations), 'text/csv');
     toast.success('CSV downloaded');
   };
   const importJSON = async (file) => {
@@ -173,7 +173,7 @@ export default function Tickets() {
 
   return (
     <>
-      <title>My Tickets · Summit</title>
+      <title>My Tickets · Eventon</title>
       <section className="relative isolate overflow-hidden pb-8 pt-32 sm:pt-40">
         <Aurora intensity={0.5} />
         <div className="container-x">
