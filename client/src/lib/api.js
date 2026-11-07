@@ -1,5 +1,5 @@
 /**
- * Thin fetch wrapper around the Kexplore REST API.
+ * Thin fetch wrapper around the Summit REST API.
  * The API is served from the same origin (`/api`) — Vite proxies it in development and
  * Vercel rewrites it to Render in production — so cookies stay first-party.
  */
@@ -63,8 +63,13 @@ export const endpoints = {
 
   me: () => api('/auth/me'),
   googleSignIn: (payload) => api('/auth/google', { method: 'POST', body: payload }),
+  signUp: (body) => api('/auth/signup', { method: 'POST', body }),
+  passwordSignIn: (body) => api('/auth/login', { method: 'POST', body }),
   logout: () => api('/auth/logout', { method: 'POST' }),
 
   bookmarks: () => api('/users/me/bookmarks'),
   toggleBookmark: (eventId) => api(`/users/me/bookmarks/${eventId}`, { method: 'PUT' }),
+
+  myRatings: () => api('/users/me/ratings'),
+  rateEvent: (eventId, value) => api(`/events/${eventId}/rating`, { method: 'PUT', body: { value } }),
 };

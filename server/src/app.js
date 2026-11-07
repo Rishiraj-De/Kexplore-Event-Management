@@ -32,7 +32,7 @@ export function createApp() {
   app.use(cookieParser());
   app.use(morgan(env.isProd ? ':method :url :status :response-time ms' : 'dev'));
 
-  app.get('/', (_req, res) => res.json({ name: 'Kexplore API', status: 'ok', health: '/api/health' }));
+  app.get('/', (_req, res) => res.json({ name: 'Summit API', status: 'ok', health: '/api/health' }));
   app.use('/api', apiRoutes);
 
   app.use(notFound);

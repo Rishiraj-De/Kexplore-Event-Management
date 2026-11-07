@@ -59,7 +59,7 @@ export default function TicketView() {
 
   return (
     <>
-      <title>{`Ticket ${ticketCode} · Kexplore`}</title>
+      <title>{`Ticket ${ticketCode} · Summit`}</title>
       <section className="relative isolate overflow-hidden pb-16 pt-32 sm:pt-40">
         <Aurora intensity={0.6} />
         <div className="container-x">

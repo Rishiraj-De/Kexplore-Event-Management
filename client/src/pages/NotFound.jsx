@@ -6,7 +6,7 @@ import { Aurora } from '@/components/ui/Effects';
 export default function NotFound({ title = 'This page wandered off' }) {
   return (
     <section className="relative isolate grid min-h-[90vh] place-items-center overflow-hidden px-4 pt-24 text-center">
-      <title>Not found · Kexplore</title>
+      <title>Not found · Summit</title>
       <Aurora />
       <div>
         <motion.p

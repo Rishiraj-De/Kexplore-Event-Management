@@ -55,6 +55,6 @@ describe('Local Storage backups', () => {
   });
 
   it('rejects files that are not backups', () => {
-    expect(() => parseRegistrationBackup('{"hello":1}')).toThrow(/not a Kexplore/);
+    expect(() => parseRegistrationBackup('{"hello":1}')).toThrow(/not a Summit/);
   });
 });

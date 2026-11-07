@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router';
 import { Countdown } from '@/components/events/Countdown';
 import { EventCard } from '@/components/events/EventCard';
-import { AddToCalendar, BookmarkButton, SeatsMeter, ShareButton } from '@/components/events/EventBits';
+import { AddToCalendar, BookmarkButton, EventRating, SeatsMeter, ShareButton } from '@/components/events/EventBits';
 import { Badge, CategoryBadge, LiveDot } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Effects';
@@ -134,7 +134,7 @@ export default function EventDetail() {
 
   return (
     <>
-      <title>{`${event.title} · Kexplore`}</title>
+      <title>{`${event.title} · Summit`}</title>
       <meta name="description" content={event.shortDescription} />
 
       {/* ── Hero ── */}
@@ -160,8 +160,8 @@ export default function EventDetail() {
               </div>
               <h1 className="mt-5 max-w-5xl text-5xl font-extrabold leading-[0.9] tracking-[-0.04em] sm:text-7xl lg:text-8xl">{event.title}</h1>
               {event.tagline && <p className="mt-5 max-w-2xl text-lg text-white/75 sm:text-xl">{event.tagline}</p>}
-              <div className="mt-8 flex flex-wrap items-center gap-2 [&_button]:border-white/20 [&_button]:bg-white/10 [&_button]:text-white [&_button]:backdrop-blur [&_button:hover]:bg-white/20">
-                <BookmarkButton event={event} />
+              <div className="mt-8 flex flex-wrap items-center gap-2 [&_button:not(.pulse-heart)]:border-white/20 [&_button:not(.pulse-heart)]:bg-white/10 [&_button:not(.pulse-heart)]:text-white [&_button:not(.pulse-heart)]:backdrop-blur [&_button:not(.pulse-heart):hover]:bg-white/20">
+                <BookmarkButton event={event} size={22} />
                 <ShareButton event={event} />
                 {phase !== 'past' && <AddToCalendar event={event} ticketCode={registration?.ticketCode} />}
               </div>
@@ -310,6 +310,12 @@ export default function EventDetail() {
             <p className="mt-3 flex items-center justify-center gap-1.5 text-center text-xs text-muted">
               <Users className="size-3.5" /> Up to 4 tickets per registration · Free cancellation
             </p>
+          </div>
+
+          <div className="mt-4 rounded-[24px] border border-line bg-surface p-5">
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">Your rating</p>
+            <EventRating event={event} size={28} showLabels className="mt-10" />
+            <p className="mt-2 text-xs text-muted">Tap a star to rate. Tap it again to clear.</p>
           </div>
 
           <div className="mt-4 flex items-center gap-4 rounded-[24px] border border-line bg-surface p-5">

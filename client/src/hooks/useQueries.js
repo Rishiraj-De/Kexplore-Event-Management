@@ -7,6 +7,7 @@ export const queryKeys = {
   event: (slug) => ['event', slug],
   ticket: (code) => ['ticket', code],
   me: ['me'],
+  myRatings: ['ratings', 'me'],
   myRegistrations: ['registrations', 'me'],
   hosted: ['events', 'hosted'],
   attendees: (id) => ['attendees', id],

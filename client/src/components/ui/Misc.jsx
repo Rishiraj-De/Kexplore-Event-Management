@@ -11,16 +11,23 @@ const AVATAR_GRADIENTS = [
   ['#c4613f', '#7c3a30'],
 ];
 
+/** The Summit mark: a peak with a flag planted on top. Drawn in `currentColor`. */
+export function SummitMark({ className }) {
+  return (
+    <svg viewBox="0 0 32 32" className={className} aria-hidden>
+      <path d="M4 25 12.6 11.2a1.6 1.6 0 0 1 2.7 0L20 18.6l2-3.1a1.5 1.5 0 0 1 2.5 0L29 25Z" fill="currentColor" />
+      <path d="M13.95 11V4.6l5 1.9-5 1.9" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinejoin="round" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function Logo({ className, compact = false }) {
   return (
-    <Link to="/" className={cn('group inline-flex items-center gap-2.5', className)} aria-label="Kexplore home">
-      <span className="relative grid size-9 place-items-center rounded-[11px] bg-brand text-brand-ink shadow-[inset_0_-3px_0_rgb(0_0_0/0.12)] transition-transform duration-500 ease-out-expo group-hover:rotate-[-8deg] group-hover:scale-105">
-        <svg viewBox="0 0 32 32" className="size-6" aria-hidden>
-          <path d="M10.5 8v16M22 8.5 13.5 16 22 23.5" fill="none" stroke="currentColor" strokeWidth="3.6" strokeLinecap="round" strokeLinejoin="round" />
-          <circle cx="24.5" cy="16" r="2" fill="currentColor" />
-        </svg>
+    <Link to="/" className={cn('group inline-flex items-center gap-2.5', className)} aria-label="Summit home">
+      <span className="relative grid size-9 place-items-center rounded-[11px] bg-brand text-brand-ink shadow-[inset_0_-3px_0_rgb(0_0_0/0.12)] transition-transform duration-500 ease-out-expo group-hover:-translate-y-0.5 group-hover:scale-105">
+        <SummitMark className="size-9" />
       </span>
-      {!compact && <span className="font-display text-xl font-bold tracking-tight">kexplore</span>}
+      {!compact && <span className="font-display text-xl font-bold tracking-tight">summit</span>}
     </Link>
   );
 }

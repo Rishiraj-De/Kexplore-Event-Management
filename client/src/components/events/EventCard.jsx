@@ -9,7 +9,7 @@ import { Badge, CategoryBadge, LiveDot } from '../ui/Badge';
 import { SpotlightCard } from '../ui/Effects';
 import { Skeleton } from '../ui/Misc';
 import { MiniCountdown } from './Countdown';
-import { BookmarkButton, SeatsMeter } from './EventBits';
+import { BookmarkButton, EventRating, SeatsMeter } from './EventBits';
 
 function StatusBadge({ event, registered }) {
   const phase = eventPhase(event);
@@ -98,6 +98,8 @@ export function EventCard({ event, layout = 'grid', index = 0, className }) {
             <ArrowUpRight className="mt-1 size-5 shrink-0 -translate-x-1 translate-y-1 text-muted opacity-0 transition-all duration-500 group-hover/spot:translate-x-0 group-hover/spot:translate-y-0 group-hover/spot:text-accent group-hover/spot:opacity-100" />
           </div>
           <p className={cn('text-sm text-muted', isList ? 'line-clamp-3' : 'line-clamp-2')}>{event.shortDescription}</p>
+          {/* Above the card-wide link so the stars stay clickable */}
+          <EventRating event={event} size={17} className="relative z-30 w-fit" />
 
           <ul className="mt-auto space-y-1.5 pt-1 text-sm">
             <li className="flex items-center gap-2 text-fg/80">

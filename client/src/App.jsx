@@ -1,9 +1,10 @@
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { lazy } from 'react';
+import { lazy, Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import { Toaster } from 'sonner';
-import { RootLayout } from './components/layout/RootLayout';
+import { RequireAuth } from './components/auth/RequireAuth';
+import { PageLoader, RootLayout } from './components/layout/RootLayout';
 import { AuthProvider, GOOGLE_CLIENT_ID } from './context/AuthContext';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import Home from './pages/Home';
@@ -17,6 +18,7 @@ const Tickets = lazy(() => import('./pages/Tickets'));
 const TicketView = lazy(() => import('./pages/TicketView'));
 const Host = lazy(() => import('./pages/Host'));
 const NotFound = lazy(() => import('./pages/NotFound'));
+const Login = lazy(() => import('./pages/Login'));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,7 +34,21 @@ const queryClient = new QueryClient({
 
 const router = createBrowserRouter([
   {
-    element: <RootLayout />,
+    path: 'login',
+    errorElement: <RouteError />,
+    element: (
+      <Suspense fallback={<PageLoader />}>
+        <Login />
+      </Suspense>
+    ),
+  },
+  {
+    // Everything else is members-only.
+    element: (
+      <RequireAuth>
+        <RootLayout />
+      </RequireAuth>
+    ),
     errorElement: <RouteError />,
     children: [
       { index: true, element: <Home /> },

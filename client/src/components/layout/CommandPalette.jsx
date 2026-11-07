@@ -77,7 +77,7 @@ export function CommandPalette() {
             className="relative w-full max-w-xl"
           >
             <Command
-              label="Search Kexplore"
+              label="Search Summit"
               shouldFilter={false}
               loop
               onKeyDown={(e) => e.key === 'Escape' && setOpen(false)}

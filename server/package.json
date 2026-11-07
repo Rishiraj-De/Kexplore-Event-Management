@@ -2,7 +2,7 @@
   "name": "kexplore-api",
   "version": "1.0.0",
   "private": true,
-  "description": "REST API for Kexplore — events, registrations and Google sign-in backed by MongoDB Atlas.",
+  "description": "REST API for Summit — events, registrations, ratings and sign-in (email or Google) backed by MongoDB Atlas.",
   "type": "module",
   "main": "src/index.js",
   "engines": {

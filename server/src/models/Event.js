@@ -51,6 +51,10 @@ const eventSchema = new Schema(
     faqs: { type: [faqSchema], default: [] },
     status: { type: String, enum: ['published', 'cancelled'], default: 'published' },
     views: { type: Number, default: 0 },
+    // Running totals so cards can show ratings and wishlist counts without extra queries.
+    ratingCount: { type: Number, default: 0, min: 0 },
+    ratingTotal: { type: Number, default: 0, min: 0 },
+    savesCount: { type: Number, default: 0, min: 0 },
   },
   {
     timestamps: true,
@@ -68,6 +72,10 @@ const eventSchema = new Schema(
 
 eventSchema.virtual('seatsLeft').get(function seatsLeft() {
   return Math.max(0, this.capacity - this.registeredCount);
+});
+
+eventSchema.virtual('rating').get(function rating() {
+  return this.ratingCount ? Math.round((this.ratingTotal / this.ratingCount) * 10) / 10 : null;
 });
 
 eventSchema.index({ status: 1, startDate: 1 });

@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { toast } from 'sonner';
 import { useAuth } from '@/context/AuthContext';
 import { endpoints } from '@/lib/api';
+import { setEventStats } from '@/lib/eventStats';
 import { eventSnapshot, savedStore } from '@/lib/storage';
 import { useSavedEvents } from './useStores';
 
@@ -19,7 +20,8 @@ async function toggleSaved(event, user) {
 
   if (!user) return;
   try {
-    await endpoints.toggleBookmark(snap.id);
+    const { savesCount } = await endpoints.toggleBookmark(snap.id);
+    setEventStats(snap.id, { savesCount });
   } catch (err) {
     apply(wasSaved);
     toast.error('Couldn’t sync your saved events', { description: err.message });

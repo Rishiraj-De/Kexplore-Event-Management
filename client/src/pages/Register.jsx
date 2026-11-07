@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router';
 import { toast } from 'sonner';
-import { AddToCalendar } from '@/components/events/EventBits';
+import { AddToCalendar, BookingSlider } from '@/components/events/EventBits';
 import { EventPicker } from '@/components/registration/EventPicker';
 import { PhoneField, TextField, TicketStepper } from '@/components/registration/FormFields';
 import { TicketCard } from '@/components/tickets/TicketCard';
@@ -174,17 +174,21 @@ export default function Register() {
     },
   });
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const [slideError, setSlideError] = useState('Booking failed');
+
+  /** Validates, then books. Returns a promise so the slide-to-book control can show progress. */
+  const confirmBooking = () => {
     setTouched(Object.fromEntries(FIELD_ORDER.map((f) => [f, true])));
     const invalid = FIELD_ORDER.filter((f) => errors[f]);
     if (invalid.length) {
       shake();
       refs[invalid[0]]?.current?.focus();
+      setSlideError(`Fix ${invalid.length} field${invalid.length > 1 ? 's' : ''} first`);
       toast.error(`Please fix ${invalid.length} field${invalid.length > 1 ? 's' : ''} before continuing`);
-      return;
+      return Promise.reject(new Error('invalid'));
     }
-    mutation.mutate({
+    setSlideError('Booking failed');
+    return mutation.mutateAsync({
       eventId: values.eventId,
       name: values.name.trim().replace(/\s+/g, ' '),
       email: values.email.trim().toLowerCase(),
@@ -194,13 +198,19 @@ export default function Register() {
     });
   };
 
+  // Pressing Enter in a field books too (same checks as sliding).
+  const onSubmit = (e) => {
+    e.preventDefault();
+    confirmBooking().catch(() => {});
+  };
+
   const completed = ['eventId', 'name', 'email', 'phone', 'agree'].filter((f) => !errors[f]).length;
   const progress = completed / 5;
   const total = (selectedEvent?.price ?? 0) * values.tickets;
 
   return (
     <>
-      <title>Register · Kexplore</title>
+      <title>Register · Summit</title>
       <section className="relative isolate overflow-hidden pb-24 pt-32 sm:pt-40">
         <Aurora intensity={0.5} />
         <div className="container-x">
@@ -352,10 +362,13 @@ export default function Register() {
                 </span>
               </label>
 
-              <Button type="submit" size="lg" className="mt-8 w-full text-base" loading={mutation.isPending}>
-                {mutation.isPending ? 'Confirming your spot…' : total > 0 ? `Confirm registration · ₹${total.toLocaleString('en-IN')}` : 'Confirm free registration'}
-                {!mutation.isPending && <ArrowRight className="size-4" />}
-              </Button>
+              <BookingSlider
+                className="mt-8"
+                label={total > 0 ? `Slide to book · ₹${total.toLocaleString('en-IN')}` : 'Slide to book · free'}
+                errorLabel={slideError}
+                onConfirm={confirmBooking}
+              />
+              <button type="submit" className="sr-only">Confirm registration</button>
               <p className="mt-4 flex items-center justify-center gap-1.5 text-xs text-muted">
                 <Lock className="size-3.5" /> Validated in your browser and on our server. No payment is taken in this demo.
               </p>

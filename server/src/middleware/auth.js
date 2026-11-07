@@ -35,6 +35,6 @@ export async function optionalAuth(req, _res, next) {
 }
 
 export function requireAuth(req, _res, next) {
-  if (!req.user) throw new HttpError(401, 'Please sign in with Google to continue');
+  if (!req.user) throw new HttpError(401, 'Please sign in to continue');
   next();
 }

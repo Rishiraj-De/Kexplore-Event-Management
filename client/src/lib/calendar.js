@@ -13,11 +13,11 @@ export function downloadICS(event, ticketCode) {
   const lines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//Kexplore//Events//EN',
+    'PRODID:-//Summit//Events//EN',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     'BEGIN:VEVENT',
-    `UID:${ticketCode ?? event.slug}@kexplore`,
+    `UID:${ticketCode ?? event.slug}@summit`,
     `DTSTAMP:${icsDate(new Date())}`,
     `DTSTART:${icsDate(event.startDate)}`,
     `DTEND:${icsDate(event.endDate)}`,

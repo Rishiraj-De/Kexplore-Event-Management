@@ -12,7 +12,10 @@ import {
   createEventSchema,
   eventQuerySchema,
   googleAuthSchema,
+  ratingSchema,
   registrationSchema,
+  signInSchema,
+  signUpSchema,
   syncSchema,
 } from '../validators/schemas.js';
 
@@ -39,6 +42,8 @@ router.get('/health', (_req, res) => {
 
 // Auth
 router.post('/auth/google', limiter(30, 15), validate(googleAuthSchema), auth.googleSignIn);
+router.post('/auth/signup', limiter(10, 60), validate(signUpSchema), auth.signUp);
+router.post('/auth/login', limiter(20, 15), validate(signInSchema), auth.signInWithPassword);
 router.get('/auth/me', auth.me);
 router.post('/auth/logout', auth.logout);
 
@@ -60,5 +65,9 @@ router.patch('/registrations/:code/cancel', limiter(20, 10), validate(cancelSche
 // Bookmarks
 router.get('/users/me/bookmarks', requireAuth, users.listBookmarks);
 router.put('/users/me/bookmarks/:eventId', requireAuth, users.toggleBookmark);
+
+// Ratings
+router.get('/users/me/ratings', requireAuth, users.listMyRatings);
+router.put('/events/:eventId/rating', requireAuth, limiter(60, 15), validate(ratingSchema), users.rateEvent);
 
 export default router;

@@ -13,7 +13,7 @@ try {
 }
 
 const server = app.listen(env.port, () => {
-  console.info(`🚀 Kexplore API listening on http://localhost:${env.port}`);
+  console.info(`🚀 Summit API listening on http://localhost:${env.port}`);
 });
 
 // Graceful shutdown so Render deploys don't drop in-flight requests.

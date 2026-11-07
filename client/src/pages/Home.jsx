@@ -5,7 +5,7 @@ import { CategoryGrid, FeaturedBento, HostCta, HowItWorks, MarqueeBand, SocialPr
 export default function Home() {
   return (
     <>
-      <title>Kexplore — Discover & register for events you’ll remember</title>
+      <title>Summit — Discover & register for events you’ll remember</title>
       <Hero />
       <MarqueeBand />
       <SeasonCarousel />

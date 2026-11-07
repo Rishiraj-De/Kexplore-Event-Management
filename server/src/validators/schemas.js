@@ -72,3 +72,24 @@ export const createEventSchema = z
 export const googleAuthSchema = z
   .object({ credential: z.string().min(20).optional(), code: z.string().min(10).optional() })
   .refine((b) => b.credential || b.code, 'Missing Google credential');
+
+const accountEmail = z.string().trim().toLowerCase().pipe(z.email('Enter a valid email address'));
+
+export const signUpSchema = z.object({
+  name: z.string().trim().regex(NAME_RE, 'Use 2–60 letters (spaces, . \' - allowed)'),
+  email: accountEmail,
+  password: z
+    .string()
+    .min(8, 'Use at least 8 characters')
+    .max(72, 'Use at most 72 characters')
+    .refine((v) => /[A-Za-z]/.test(v) && /\d/.test(v), 'Mix letters and numbers'),
+});
+
+export const signInSchema = z.object({
+  email: accountEmail,
+  password: z.string().min(1, 'Enter your password').max(72),
+});
+
+export const ratingSchema = z.object({
+  value: z.coerce.number().int().min(0).max(5), // 0 clears your rating
+});

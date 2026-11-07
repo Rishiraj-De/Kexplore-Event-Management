@@ -1,9 +1,15 @@
-import { CalendarPlus, Check, Copy, Download, Heart, Share2 } from 'lucide-react';
+import { CalendarPlus, Check, Copy, Download, Share2 } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
+import PeekRating from '@/components/reactbits/PeekRating';
+import PulseHeart from '@/components/reactbits/PulseHeart';
+import SlideCommit from '@/components/reactbits/SlideCommit';
+import { useTheme } from '@/context/ThemeContext';
 import { useBookmarks } from '@/hooks/useBookmarks';
+import { useRatings } from '@/hooks/useRatings';
 import { downloadICS, googleCalendarUrl } from '@/lib/calendar';
+import { useEventStats } from '@/lib/eventStats';
 import { availability } from '@/lib/format';
 import { cn } from '@/lib/utils';
 import { GoogleIcon } from '../ui/BrandIcons';
@@ -35,41 +41,130 @@ export function SeatsMeter({ event, className, showLabel = true }) {
   );
 }
 
-/** Heart toggle with a burst animation. */
-export function BookmarkButton({ event, className, variant = 'glass' }) {
+/**
+ * Wishlist heart: React Bits <PulseHeart>. Shows how many people saved the event; saving is
+ * stored on this device and synced to the account.
+ */
+export function BookmarkButton({ event, className, variant = 'glass', size = 20 }) {
   const { isSaved, toggle } = useBookmarks();
+  const { savesCount } = useEventStats(event);
+  const { theme } = useTheme();
   const saved = isSaved(event.id);
+  const onImage = variant === 'glass';
+  // The list response can be a few seconds old; never show "0" next to a heart you've filled.
+  const count = Math.max(savesCount, saved ? 1 : 0);
+
   return (
-    <button
-      type="button"
-      onClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        toggle(event);
-      }}
-      aria-pressed={saved}
-      aria-label={saved ? `Remove ${event.title} from saved` : `Save ${event.title}`}
-      className={cn(
-        'relative grid size-10 place-items-center rounded-full transition-all duration-300 hover:scale-110 active:scale-95',
-        variant === 'glass' ? 'glass border border-white/20 text-white' : 'border border-line bg-surface text-fg hover:bg-surface-2',
-        className,
-      )}
-    >
-      <motion.span key={String(saved)} initial={{ scale: 0.4 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 500, damping: 15 }}>
-        <Heart className={cn('size-[18px]', saved && 'fill-terracotta text-terracotta')} />
-      </motion.span>
-      <AnimatePresence>
-        {saved && (
-          <motion.span
-            className="absolute inset-0 rounded-full border-2 border-terracotta"
-            initial={{ scale: 0.6, opacity: 1 }}
-            animate={{ scale: 1.6, opacity: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6 }}
-          />
+    <span className={cn('inline-flex', className)}>
+      <PulseHeart
+        liked={saved}
+        count={count}
+        onChange={() => toggle(event)}
+        size={size}
+        corner={size}
+        likedColor="#da6d58"
+        idleColor={onImage ? 'rgb(255 255 255 / 0.9)' : theme === 'dark' ? '#9db6b1' : '#587079'}
+        pillColor={onImage ? 'rgb(21 38 48 / 0.55)' : theme === 'dark' ? '#233c48' : '#f3e2cf'}
+        textColor={onImage ? '#ffffff' : theme === 'dark' ? '#f7e8da' : '#213843'}
+        label={saved ? `Remove ${event.title} from your wishlist` : `Add ${event.title} to your wishlist`}
+        className={cn('summit-heart', onImage && 'summit-heart--glass')}
+      />
+    </span>
+  );
+}
+
+const RATING_LABELS = ['Not for me', 'Okay', 'Good', 'Great', 'Unmissable'];
+
+/**
+ * Star rating: React Bits <PeekRating> for the signed-in user's own rating, next to the
+ * event's average. Clicking your current star again clears it.
+ */
+export function EventRating({ event, size = 18, showLabels = false, className }) {
+  const { ratingOf, rate } = useRatings();
+  const { rating, ratingCount } = useEventStats(event);
+  const { theme } = useTheme();
+  const dark = theme === 'dark';
+  const mine = ratingOf(String(event.id));
+  const lift = Math.round(size / 4);
+  // PeekRating reserves space above the stars for its hover tip; pull that space back out of the
+  // layout so the stars line up with the text beside them (the tip simply floats over the content above).
+  const room = lift + Math.round(size * 0.9);
+
+  return (
+    <div className={cn('flex flex-wrap items-center gap-x-3 gap-y-1', className)}>
+      <div style={{ marginTop: -room }}>
+        <PeekRating
+          value={mine}
+          onChange={(value) => rate(String(event.id), value)}
+          size={size}
+          lift={lift}
+          labels={showLabels ? RATING_LABELS : []}
+          activeColor="#feaf76"
+          idleColor={dark ? '#3a5562' : '#e0cdb8'}
+          tipColor={dark ? '#f7e8da' : '#213843'}
+          tipTextColor={dark ? '#213843' : '#fffaf4'}
+          ariaLabel={`Rate ${event.title}`}
+        />
+      </div>
+      <span className="text-xs text-muted">
+        {ratingCount ? (
+          <>
+            <span className="font-semibold text-fg">{rating?.toFixed(1)}</span> · {ratingCount.toLocaleString('en-IN')} rating
+            {ratingCount === 1 ? '' : 's'}
+          </>
+        ) : (
+          'No ratings yet'
         )}
-      </AnimatePresence>
-    </button>
+      </span>
+    </div>
+  );
+}
+
+const SLIDE_HEIGHT = 56;
+
+/**
+ * Booking confirmation: React Bits <SlideCommit>. It needs a pixel width, so the container
+ * is measured and the slider re-renders when it resizes.
+ */
+export function BookingSlider({ label, errorLabel, onConfirm, onDone, disabled, className }) {
+  const { theme } = useTheme();
+  const dark = theme === 'dark';
+  const ref = useRef(null);
+  const [width, setWidth] = useState(0);
+
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+    const measure = () => setWidth(Math.round(el.clientWidth));
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className={cn('w-full', className)} style={{ minHeight: SLIDE_HEIGHT }}>
+      {width > 0 && (
+        <SlideCommit
+          width={width}
+          height={SLIDE_HEIGHT}
+          radius={SLIDE_HEIGHT / 2}
+          label={label}
+          doneLabel="You’re in!"
+          errorLabel={errorLabel}
+          onConfirm={onConfirm}
+          onDone={onDone}
+          disabled={disabled}
+          trackColor={dark ? '#233c48' : '#f3e2cf'}
+          handleColor="#feaf76"
+          successColor={dark ? '#468d8b' : '#2f7a73'}
+          dangerColor={dark ? '#e57d67' : '#bf4f3b'}
+          speed={55}
+          holdMs={1600}
+          className="summit-slide"
+        />
+      )}
+    </div>
   );
 }
 

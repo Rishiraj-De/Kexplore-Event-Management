@@ -6,7 +6,7 @@ const DAY = 24 * 60 * 60 * 1000;
 
 /** Fields needed to render an event card — keeps list payloads small. */
 export const CARD_FIELDS =
-  'title slug tagline shortDescription category tags coverImage startDate endDate mode venue price currency capacity registeredCount featured organizer.name';
+  'title slug tagline shortDescription category tags coverImage startDate endDate mode venue price currency capacity registeredCount featured organizer.name ratingCount ratingTotal savesCount';
 
 // Event lists are identical for every visitor, so let the CDN (Vercel edge) cache them briefly
 // and serve a stale copy while it revalidates. This keeps the UI instant even if the API is waking up.
@@ -84,18 +84,21 @@ export async function getMeta(_req, res) {
           events: { $sum: 1 },
           upcoming: { $sum: { $cond: [{ $gte: ['$endDate', now] }, 1, 0] } },
           attendees: { $sum: '$registeredCount' },
+          ratingTotal: { $sum: '$ratingTotal' },
+          ratingCount: { $sum: '$ratingCount' },
         },
       },
     ]),
     Event.distinct('venue.city', { status: 'published' }),
   ]);
 
-  const { _id, ...counts } = totals[0] ?? {};
+  const { _id, ratingTotal = 0, ratingCount = 0, ...counts } = totals[0] ?? {};
+  const rating = ratingCount ? Math.round((ratingTotal / ratingCount) * 10) / 10 : null;
   setPublicCache(res, 60);
   res.json({
     categories,
     cities,
-    stats: { events: 0, upcoming: 0, attendees: 0, ...counts, cities: cities.length },
+    stats: { events: 0, upcoming: 0, attendees: 0, ...counts, cities: cities.length, rating, ratingCount },
   });
 }
 
@@ -133,7 +136,7 @@ export async function createEvent(req, res) {
     organizer: { name: req.user.name, email: req.user.email },
     host: req.user._id,
     faqs: [
-      { q: 'How do I get my ticket?', a: 'Register on Kexplore and your QR ticket appears instantly under My Tickets.' },
+      { q: 'How do I get my ticket?', a: 'Register on Summit and your QR ticket appears instantly under My Tickets.' },
       { q: 'Can I cancel?', a: 'Yes — cancel any time from My Tickets and your seat is released for someone else.' },
     ],
   });

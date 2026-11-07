@@ -11,6 +11,7 @@ import { Countdown } from '../events/Countdown';
 import { EventCard, EventCardSkeleton } from '../events/EventCard';
 import { Badge, CategoryBadge } from '../ui/Badge';
 import { Button } from '../ui/Button';
+import { Marquee as MarqueeColumn } from '../twentyfirst/Marquee3D';
 import { CountUp, Marquee, Reveal, SpotlightCard } from '../ui/Effects';
 import { Avatar, SectionHeading, Skeleton } from '../ui/Misc';
 
@@ -250,7 +251,7 @@ export function HowItWorks() {
 // ── Stats + testimonials ─────────────────────────────────────────────────────
 const testimonials = [
   { name: 'Ananya Mishra', role: 'CSE, 3rd year', text: 'Registered for HackKalinga in literally 20 seconds. The QR ticket on my phone got me straight through the gate.' },
-  { name: 'Rohan Patnaik', role: 'Event organiser', text: 'Hosting on Kexplore was painless. I could see who registered in real time and the page looked better than our own website.' },
+  { name: 'Rohan Patnaik', role: 'Event organiser', text: 'Hosting on Summit was painless. I could see who registered in real time and the page looked better than our own website.' },
   { name: 'Ishita Rao', role: 'Design student', text: 'The dark mode is gorgeous and the countdowns make me way too excited for every event I save.' },
   { name: 'Kabir Sen', role: 'Photographer', text: 'Found the Old Town photo walk through the search bar. Now I check the “this week” filter every Monday.' },
   { name: 'Meera Iyer', role: 'Product manager', text: 'Add-to-calendar plus reminders means I actually show up to the things I sign up for. Revolutionary.' },
@@ -259,21 +260,55 @@ const testimonials = [
 
 function Quote({ t }) {
   return (
-    <figure className="w-[340px] shrink-0 rounded-[24px] border border-line bg-surface p-6">
-      <div className="flex gap-0.5 text-apricot" aria-label="5 out of 5 stars">
-        {Array.from({ length: 5 }, (_, i) => (
-          <Star key={i} className="size-4 fill-current" />
-        ))}
-      </div>
-      <blockquote className="mt-4 text-[0.95rem] leading-relaxed">“{t.text}”</blockquote>
-      <figcaption className="mt-5 flex items-center gap-3">
-        <Avatar name={t.name} size={36} />
-        <div>
-          <p className="text-sm font-semibold">{t.name}</p>
-          <p className="text-xs text-muted">{t.role}</p>
+    <figure className="w-60 rounded-[20px] border border-line bg-surface p-4 shadow-soft sm:w-64">
+      <figcaption className="flex items-center gap-3">
+        <Avatar name={t.name} size={34} />
+        <div className="min-w-0">
+          <p className="truncate text-sm font-semibold">{t.name}</p>
+          <p className="truncate text-xs text-muted">{t.role}</p>
         </div>
       </figcaption>
+      <div className="mt-3 flex gap-0.5 text-apricot" aria-label="5 out of 5 stars">
+        {Array.from({ length: 5 }, (_, i) => (
+          <Star key={i} className="size-3.5 fill-current" />
+        ))}
+      </div>
+      <blockquote className="mt-2 text-[0.88rem] leading-relaxed">“{t.text}”</blockquote>
     </figure>
+  );
+}
+
+/** Rotate the list so each column starts with a different person. */
+const column = (offset) => testimonials.map((_, i) => testimonials[(i + offset) % testimonials.length]);
+const COLUMNS = [
+  { items: column(0), reverse: false, duration: '38s' },
+  { items: column(2), reverse: true, duration: '44s' },
+  { items: column(4), reverse: false, duration: '40s' },
+  { items: column(1), reverse: true, duration: '46s' },
+];
+
+/** 21st.dev "3D Testimonials": four vertical marquees on a tilted plane. */
+function TestimonialWall() {
+  return (
+    <div className="relative mt-14 h-[30rem] w-full overflow-hidden rounded-[28px] border border-line bg-surface-2/40 [perspective:300px]" role="region" aria-label="What attendees say">
+      <div
+        className="absolute left-1/2 top-1/2 flex flex-row items-center gap-4"
+        style={{ transform: 'translate(-50%, -50%) translateX(-60px) translateZ(-100px) rotateX(20deg) rotateY(-10deg) rotateZ(20deg)' }}
+      >
+        {COLUMNS.map((col, i) => (
+          <MarqueeColumn key={i} vertical pauseOnHover reverse={col.reverse} repeat={3} className={cn('h-[44rem]', i === 3 && 'hidden sm:flex')} style={{ '--duration': col.duration }}>
+            {col.items.map((t) => (
+              <Quote key={t.name} t={t} />
+            ))}
+          </MarqueeColumn>
+        ))}
+      </div>
+      {/* Fade the edges into the panel */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-bg" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-bg" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/6 bg-gradient-to-r from-bg" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/6 bg-gradient-to-l from-bg" />
+    </div>
   );
 }
 
@@ -284,41 +319,30 @@ export function SocialProof() {
     { value: stats?.events ?? 24, suffix: '', label: 'events listed' },
     { value: stats?.attendees ?? 16000, suffix: '+', label: 'registrations' },
     { value: stats?.cities ?? 5, suffix: '', label: 'cities' },
-    { value: 4.9, suffix: '★', label: 'average rating', decimals: true },
+    stats?.rating
+      ? { value: stats.rating, suffix: '★', label: `average from ${stats.ratingCount.toLocaleString('en-IN')} rating${stats.ratingCount === 1 ? '' : 's'}`, decimals: true }
+      : { value: stats?.upcoming ?? 0, suffix: '', label: 'upcoming events' },
   ];
   return (
-    <section className="py-20" aria-label="Kexplore in numbers">
-      <div className="container-x grid grid-cols-2 gap-px overflow-hidden rounded-[28px] border border-line bg-line lg:grid-cols-4">
-        {items.map((s) => (
-          <div key={s.label} className="bg-bg p-6 sm:p-8">
-            <p className="font-display text-5xl font-extrabold tracking-tight sm:text-6xl">
-              <CountUp value={s.value} format={(n) => (s.decimals ? n.toFixed(1) : Math.round(n).toLocaleString('en-IN'))} />
-              <span className="text-accent">{s.suffix}</span>
-            </p>
-            <p className="mt-2 text-sm text-muted">{s.label}</p>
-          </div>
-        ))}
-      </div>
-      <div className="mt-14 space-y-4">
-        <Marquee duration={55} gap="1rem">
-          {testimonials.slice(0, 3).map((t) => (
-            <Quote key={t.name} t={t} />
+    <section className="py-20" aria-label="Summit in numbers">
+      <div className="container-x">
+        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-[28px] border border-line bg-line lg:grid-cols-4">
+          {items.map((s) => (
+            <div key={s.label} className="bg-bg p-6 sm:p-8">
+              <p className="font-display text-5xl font-extrabold tracking-tight sm:text-6xl">
+                <CountUp value={s.value} format={(n) => (s.decimals ? n.toFixed(1) : Math.round(n).toLocaleString('en-IN'))} />
+                <span className="text-accent">{s.suffix}</span>
+              </p>
+              <p className="mt-2 text-sm text-muted">{s.label}</p>
+            </div>
           ))}
-          {testimonials.slice(3).map((t) => (
-            <Quote key={`${t.name}-b`} t={t} />
-          ))}
-        </Marquee>
-        <Marquee duration={60} gap="1rem" reverse>
-          {[...testimonials].reverse().map((t) => (
-            <Quote key={t.name} t={t} />
-          ))}
-        </Marquee>
+        </div>
+        <TestimonialWall />
       </div>
     </section>
   );
 }
 
-// ── Host CTA ──────────────────────────────────────────────────────────────────
 export function HostCta() {
   const { user, openSignIn } = useAuth();
   return (

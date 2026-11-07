@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="client/public/favicon.svg" width="64" alt="Kexplore logo" />
+<img src="client/public/favicon.svg" width="64" alt="Summit logo" />
 
-# Kexplore
+# Summit
 
 **A modern, fully responsive event discovery & registration platform.**
 Explore hackathons, gigs, workshops and festivals, register in under 30 seconds and walk in with a QR ticket.
@@ -20,7 +20,7 @@ Explore hackathons, gigs, workshops and festivals, register in under 30 seconds 
 ![Deployed on Vercel](https://img.shields.io/badge/Frontend-Vercel-000?logo=vercel)
 ![API on Render](https://img.shields.io/badge/API-Render-46e3b7?logo=render&logoColor=black)
 
-<img src="docs/screenshots/home-dark.jpg" alt="Kexplore home page in dark mode" width="100%" />
+<img src="docs/screenshots/home-dark.jpg" alt="Summit home page in dark mode" width="100%" />
 
 </div>
 
@@ -46,14 +46,16 @@ Explore hackathons, gigs, workshops and festivals, register in under 30 seconds 
 
 ## ✨ About the project
 
-**Kexplore** was built for the *K Explore – Web Designing* task: *design and develop a responsive event management website where users can explore upcoming events, view details and register.*
+**Summit** (formerly Kexplore) was built for the *K Explore – Web Designing* task: *design and develop a responsive event management website where users can explore upcoming events, view details and register.*
 
 It is a single-page React application backed by a small REST API and a MongoDB Atlas database:
 
-- **Home** — a low-poly *mountain-lake-at-dusk* hero (moon at night, sun at dawn) with live search, a WebGL **FlexCarousel** reel of the whole season, a featured-events bento grid, upcoming events grouped by month, category tiles, “how it works”, live stats and testimonials.
+- **Sign-in first** — the whole site sits behind a login page styled as an event pass (21st.dev *Login Form* with its smoky WebGL background). Create an account with email + password, or continue with Google; you land back on the page you asked for.
+- **Home** — a low-poly *mountain-lake-at-dusk* hero (moon at night, sun at dawn) with live search, a WebGL **FlexCarousel** reel of the whole season, a featured-events bento grid, upcoming events grouped by month, category tiles, “how it works”, live stats and a **3D testimonial wall** (21st.dev *3D Testimonials*).
 - **Explore** — search, category / date / price / format filters, sorting, grid ↔ list views and “load more” pagination. Filters live in the URL, so every result page is shareable.
+- **Ratings & wishlist** — every event card and page has a React Bits **PeekRating** (rate 1–5, tap again to clear; the average and count are stored on the server) and a **PulseHeart** wishlist button showing how many people saved the event.
 - **Event details** — cover hero with parallax, live countdown, seats meter, schedule, speakers, venue map, FAQ accordion, share and add-to-calendar.
-- **Register** — a validated form (name, email, phone, selected event, tickets) with a **live ticket preview** that fills in as you type, then confetti and a QR ticket on success.
+- **Register** — a validated form (name, email, phone, selected event, tickets) with a **live ticket preview** that fills in as you type; you confirm by dragging the React Bits **SlideCommit** slider, then get confetti and a QR ticket.
 - **My Tickets** — every registration is kept in **Local Storage** (works offline), synced with the server, exportable to JSON/CSV and importable.
 - **Host** — sign in with Google to publish your own events and see who registered.
 
@@ -127,7 +129,7 @@ The whole interface is built from one six-colour palette — *dusk over a mounta
 
 | Layer | Technologies |
 | --- | --- |
-| **Frontend** | React 19, Vite 8, Tailwind CSS 4, React Router 7, TanStack Query 5, Motion, Lenis, React Bits FlexCarousel (ogl / WebGL 2), cmdk, Sonner, qrcode.react, canvas-confetti, html-to-image, lucide-react, date/number formatting via `Intl` |
+| **Frontend** | React 19, Vite 8, Tailwind CSS 4, React Router 7, TanStack Query 5, Motion, Lenis, React Bits (FlexCarousel on ogl / WebGL 2, PeekRating, PulseHeart, SlideCommit), 21st.dev components, Hugeicons, cmdk, Sonner, qrcode.react, canvas-confetti, html-to-image, lucide-react, date/number formatting via `Intl` |
 | **Backend** | Node.js 22, Express 5, Mongoose 9, Zod 4, google-auth-library, jsonwebtoken, Helmet, express-rate-limit, compression |
 | **Database** | MongoDB Atlas (M0, AWS Singapore) |
 | **Auth** | Google Identity Services (OAuth 2.0 popup code flow + One Tap) |
@@ -189,6 +191,12 @@ Each store is a tiny observable (`subscribe` / `getSnapshot`) read with React’
 
 ### Authentication
 
+Every route except `/login` is wrapped in `<RequireAuth>`, which waits for `/api/auth/me` (retrying while the free-tier API wakes up) and redirects signed-out visitors to `/login?next=…`.
+
+**Email + password:** `POST /api/auth/signup` validates the name, email and password (8+ characters with letters and numbers) and stores an **scrypt** hash (`N=2¹⁵`, per-user salt, constant-time compare). `POST /api/auth/login` answers wrong passwords and unknown emails with the same message and timing. Signing in with Google later using the same email links to the same account.
+
+**Google:**
+
 1. The **Continue with Google** button opens Google’s popup (`flow: 'auth-code'`); One Tap returns an ID token directly.
 2. The API exchanges the code with the client secret (or takes the ID token), verifies it with `google-auth-library`, and upserts the user.
 3. A 7-day JWT is set as an `httpOnly`, `SameSite=Lax`, `Secure` cookie.
@@ -211,7 +219,8 @@ Each store is a tiny observable (`subscribe` / `getSnapshot`) read with React’
 │       │   ├── auth/           # Google button, sign-in dialog, One Tap
 │       │   ├── events/         # EventCard, Countdown, seats meter, share, calendar
 │       │   ├── home/           # Hero, dusk scene, season carousel, landing sections
-│       │   ├── reactbits/      # FlexCarousel (vendored from React Bits)
+│       │   ├── reactbits/      # FlexCarousel, PeekRating, PulseHeart, SlideCommit (React Bits)
+│       │   ├── twentyfirst/    # Login form + 3D testimonial marquee (21st.dev, adapted)
 │       │   ├── layout/         # Navbar, Footer, command palette, root layout
 │       │   ├── registration/   # Form fields, event picker
 │       │   ├── tickets/        # TicketCard (QR ticket)
@@ -256,9 +265,13 @@ Base URL: `https://kexplore-events.vercel.app/api` (proxied) or `https://kexplor
 | `PATCH` | `/registrations/:code/cancel` | Cancel `{ email }` (or as the signed-in owner) |
 | `POST` | `/registrations/sync` | Statuses for a list of ticket codes (Local Storage reconciliation) |
 | `GET` | `/registrations/me` | 🔒 Your tickets |
+| `POST` | `/auth/signup` | Create an account `{ name, email, password }` |
+| `POST` | `/auth/login` | Sign in `{ email, password }` |
 | `POST` | `/auth/google` | Sign in with `{ code }` or `{ credential }` |
 | `GET` | `/auth/me` · `POST` `/auth/logout` | Session |
-| `GET` · `PUT` | `/users/me/bookmarks[/:eventId]` | 🔒 Saved events |
+| `GET` · `PUT` | `/users/me/bookmarks[/:eventId]` | 🔒 Saved events (the toggle returns the event’s new `savesCount`) |
+| `PUT` | `/events/:eventId/rating` | 🔒 Rate `{ value: 1–5 }` or clear with `0`; returns the new average and count |
+| `GET` | `/users/me/ratings` | 🔒 Your ratings as `{ eventId: value }` |
 
 Validation errors return `422` with field-level `details`, e.g. `{ "error": "Please fix the highlighted fields", "details": { "email": "Enter a valid email address" } }`.
 
@@ -342,7 +355,8 @@ npm run dev                 # http://localhost:5173 (proxies /api → :4000)
 ## 🙏 Credits
 
 - Event photography from [Unsplash](https://unsplash.com) (Unsplash License). Event names, organisers and people are fictional demo data.
-- [FlexCarousel](https://reactbits.dev) by React Bits (vendored in `client/src/components/reactbits/`). UI inspiration: Aceternity UI, Dribbble and Mobbin; every other component was written for this project.
+- [React Bits](https://reactbits.dev): FlexCarousel, PeekRating, PulseHeart and SlideCommit (vendored in `client/src/components/reactbits/`).
+- [21st.dev](https://21st.dev): *Login Form* by minhxthanh and *3D Testimonials* by sean0205, adapted in `client/src/components/twentyfirst/`. UI inspiration: Aceternity UI, Dribbble and Mobbin; every other component was written for this project.
 - Colour palette inspired by a dusk mountain-lake poster by Luca Davincci.
 - Icons by [Lucide](https://lucide.dev); fonts by [Fontsource](https://fontsource.org).
 

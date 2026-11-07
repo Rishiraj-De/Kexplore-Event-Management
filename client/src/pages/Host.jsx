@@ -305,7 +305,7 @@ export default function Host() {
 
   return (
     <>
-      <title>Host an event · Kexplore</title>
+      <title>Host an event · Summit</title>
       <section className="relative isolate overflow-hidden pb-24 pt-32 sm:pt-40">
         <Aurora intensity={0.6} />
         <div className="container-x">

@@ -48,6 +48,9 @@ export const eventSnapshot = (event) =>
     price: event.price,
     venue: event.venue && { name: event.venue.name, city: event.venue.city, address: event.venue.address },
     organizer: event.organizer && { name: event.organizer.name },
+    savesCount: event.savesCount,
+    ratingCount: event.ratingCount,
+    ratingTotal: event.ratingTotal,
   };
 
 function createStore(key, { idOf, version = 1 }) {
@@ -149,7 +152,7 @@ export function registrationsToCSV(list) {
 export function parseRegistrationBackup(text) {
   const data = JSON.parse(text);
   const list = Array.isArray(data) ? data : data?.registrations;
-  if (!Array.isArray(list)) throw new Error('This file is not a Kexplore tickets backup');
+  if (!Array.isArray(list)) throw new Error('This file is not a Summit tickets backup');
   return list.filter((r) => /^KX-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(r?.ticketCode) && r?.event?.title);
 }
 

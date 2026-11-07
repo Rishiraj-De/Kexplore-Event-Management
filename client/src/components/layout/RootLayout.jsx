@@ -2,9 +2,8 @@ import { ReactLenis, useLenis } from 'lenis/react';
 import { motion, useScroll, useSpring } from 'motion/react';
 import { Suspense, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router';
-import { useAuth } from '@/context/AuthContext';
 import { prefersReducedMotion } from '@/lib/utils';
-import { OneTap, SignInDialog } from '../auth/SignIn';
+import { SignInDialog } from '../auth/SignIn';
 import { CommandPalette } from './CommandPalette';
 import { Footer } from './Footer';
 import { Navbar } from './Navbar';
@@ -44,7 +43,6 @@ export function PageLoader() {
 }
 
 export function RootLayout() {
-  const { googleEnabled } = useAuth();
   const smooth = !prefersReducedMotion();
 
   return (
@@ -60,7 +58,6 @@ export function RootLayout() {
       <Footer />
       <CommandPalette />
       <SignInDialog />
-      {googleEnabled && <OneTap />}
     </ReactLenis>
   );
 }
